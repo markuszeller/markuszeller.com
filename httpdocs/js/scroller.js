@@ -51,6 +51,7 @@ window.addEventListener("load", function()
 
 //region canvas
     var canvas1 = document.body.appendChild(document.createElement("canvas"));
+    let audio = document.getElementById('audio');
     canvas1.width = w;
     canvas1.height = h;
     canvas1.style.position = "fixed";
@@ -58,14 +59,20 @@ window.addEventListener("load", function()
     canvas1.style.left = 0;
 
     canvas1.addEventListener("mousemove", mouseHandler);
-    canvas1.addEventListener("touchstart", function(e)
+    canvas1.addEventListener("touchend", function(e)
     {
-        e.preventDefault();
+        // e.preventDefault();
         mouseHandler(e.changedTouches[0]);
         touched = true;
         clearTouch();
+        audio.play();
     });
-    canvas1.addEventListener("click", function() { clicked = true; clearTouch(); });
+    canvas1.addEventListener("click", function()
+    {
+        clicked = true;
+        clearTouch();
+        audio.play();
+    });
 
     var ctx1 = canvas1.getContext("2d");
 //endregion
@@ -778,6 +785,7 @@ window.addEventListener("load", function()
 //endregion
 
 //region start
+
     window.requestAnimationFrame(animate);
 //endregion
 

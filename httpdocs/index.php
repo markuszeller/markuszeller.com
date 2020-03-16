@@ -1,4 +1,4 @@
-<?php define('BUILD', 50); ?><!DOCTYPE html>
+<?php define('BUILD', 51); ?><!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,14 +23,14 @@ Here you'll find some of my public projects and official social pages like Faceb
     </style>
 </head>
 <body>
-<audio id="audio" autoplay>
+<audio id="audio">
     <source src="/img/LifeIsJustAGame.mp3" type="audio/mp3">
 </audio>
 <img id="sprite" src="/img/sprite.png?v=<?php echo BUILD; ?>" alt="sprite, cola, fanta, ZERO!">
 
 <a id="url" target="_blank"></a>
 
-<article id="text">Hello and welcome to my homepage. I am Markus Zeller who likes to code, make music, make some graphics stuff and bodybuilding.
+<article id="text">::: Click or Touch for music ::: Hello and welcome to my homepage. I am Markus Zeller who likes to code, make music, make some graphics stuff and bodybuilding.
 Here you'll find some of my public projects and official social pages like Facebook, Instagram or my Youtube channel. I am looking forward to see you there!
 If you like my stuff, please consider supporting it on www.patreon.com/markuszeller or www.paypal.me/markuszeller. And remember:
 sharing is caring! Spread the word... greetings going out to the NWO, Hess Hansonis Family and all friends! Keep away from scalar waves - muss man wissen!
