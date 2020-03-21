@@ -65,13 +65,11 @@ window.addEventListener("load", function()
         mouseHandler(e.changedTouches[0]);
         touched = true;
         clearTouch();
-        audio.play();
     });
     canvas1.addEventListener("click", function()
     {
         clicked = true;
         clearTouch();
-        audio.play();
     });
 
     var ctx1 = canvas1.getContext("2d");
@@ -611,6 +609,70 @@ window.addEventListener("load", function()
     }
 //endregion
 
+//region Speaker
+    function Speaker()
+    {
+        this.isOn = false;
+        this.srcX = 1050;
+        this.srcY = 120;
+        this.size = 64;
+        this.hs = this.size / 2;
+        this.x = 0;
+        this.y = 0;
+        this.frame = 0;
+        this.speed = 0;
+        this.acc = .5;
+
+        this.offY = this.hs;
+        this.onY = h - this.size - this.size;
+
+        this.cx = w - this.size - this.size;
+        this.cy = this.hs;
+
+        Speaker.prototype.update = function() {
+            this.frame++;
+
+            if (this.speed) {
+                this.speed += this.acc;
+
+                if (this.isOn) {
+                    this.cy += this.speed;
+                    if (this.cy >= this.onY) {
+                        this.y = this.onY;
+                        this.speed = 0;
+                    }
+                } else {
+                    this.cy -= this.speed;
+                    if (this.cy <= this.offY) {
+                        this.y = this.offY;
+                        this.speed = 0;
+                    }
+                }
+            }
+
+            this.x = this.cx + (this.hs * Math.sin(this.frame * .01));
+            this.y = this.cy + (this.hs * Math.cos(this.frame * .01));
+
+            if(mx && my && mx > this.x && mx < this.x + this.size && my > this.y && my < this.y + this.size)
+            {
+                if(touched || clicked)
+                {
+                    touched = clicked = false;
+                    this.isOn = !this.isOn;
+                    if(this.isOn) audio.play(); else audio.pause();
+                    this.speed = this.acc;
+                }
+            }
+        };
+
+        Speaker.prototype.draw = function()
+        {
+            ctx1.drawImage(sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
+        };
+
+    }
+//endregion
+
 //region Init
     for(i=0; i<starCount; i++)
     {
@@ -636,6 +698,8 @@ window.addEventListener("load", function()
     rainbow = new RainbowColor();
     var ascii = new Ascii();
     ascii.init();
+
+    let speaker = new Speaker();
 
 //endregion
 
@@ -673,6 +737,7 @@ window.addEventListener("load", function()
         bars.forEach(function(b) { b.update(); });
 
         ascii.update();
+        speaker.update();
     }
 //endregion
 
@@ -715,6 +780,7 @@ window.addEventListener("load", function()
         pages[page].draw();
         profiles.forEach(function(p) { p.draw() });
         ship.draw();
+        speaker.draw();
     }
 //endregion
 

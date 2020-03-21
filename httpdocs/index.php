@@ -1,4 +1,4 @@
-<?php define('BUILD', 51); ?><!DOCTYPE html>
+<?php define('BUILD', 52); ?><!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +30,7 @@ Here you'll find some of my public projects and official social pages like Faceb
 
 <a id="url" target="_blank"></a>
 
-<article id="text">::: Click or Touch for music ::: Hello and welcome to my homepage. I am Markus Zeller who likes to code, make music, make some graphics stuff and bodybuilding.
+<article id="text">Hello and welcome to my homepage. I am Markus Zeller who likes to code, make music, make some graphics stuff and bodybuilding.
 Here you'll find some of my public projects and official social pages like Facebook, Instagram or my Youtube channel. I am looking forward to see you there!
 If you like my stuff, please consider supporting it on www.patreon.com/markuszeller or www.paypal.me/markuszeller. And remember:
 sharing is caring! Spread the word... greetings going out to the NWO, Hess Hansonis Family and all friends! Keep away from scalar waves - muss man wissen!
