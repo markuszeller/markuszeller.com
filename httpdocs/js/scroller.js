@@ -537,6 +537,7 @@ window.addEventListener("load", function()
         this.raw[11] = "                 `-----\'\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF    \u00AF\u00AF\u00AF\u00AF";
 
         this.chars = [];
+        this.minFs = 12;
         this.cw = 66;
         this.sx = .75;
         this.sy = 1.25;
