@@ -537,6 +537,7 @@ window.addEventListener("load", function()
         this.raw[11] = "                 `-----\'\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF    \u00AF\u00AF\u00AF\u00AF";
 
         this.chars = [];
+        this.minFs = 12;
         this.cw = 66;
         this.sx = .75;
         this.sy = 1.25;
@@ -562,6 +563,8 @@ window.addEventListener("load", function()
             if(!this.run) return;
 
             let fs = Math.floor(ow / this.cw);
+            if(fs < this.minFs) fs = this.minFs;
+
             let xoff = w/2 - (fs * this.cw * this.sx * .5);
             let yoff = y - (fs * this.raw.length * this.sy * .5);
             let ax = (w - (fs * this.cw * this.sx)) * .5;
@@ -582,7 +585,7 @@ window.addEventListener("load", function()
             if(!this.run) return;
 
             this.frame++;
-            ctx1.font = ow / this.cw + 'px Courier';
+            ctx1.font = ow / this.cw + 'px Courier Bold';
             ctx1.fillStyle = rainbow.getRGBColorString(0);
 
             for(let i = 0, c = 1, l = this.chars.length; i < l; i++)
