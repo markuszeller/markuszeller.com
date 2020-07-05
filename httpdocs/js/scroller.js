@@ -502,7 +502,7 @@ window.addEventListener("load", function()
 
 //region RainbowColor
     function RainbowColor() {
-       this.freq = Math.PI/2 * .01;
+       this.freq = Math.PI/2 * .1;
        this.w = 127;
        this.c = 128;
        this.i = 0;
@@ -512,7 +512,7 @@ window.addEventListener("load", function()
            let r = Math.sin(this.freq * this.i + 2 + phase) * this.w + this.c;
            let g = Math.sin(this.freq * this.i + phase) * this.w + this.c;
            let b = Math.sin(this.freq * this.i + 4 + phase) * this.w + this.c;
-           this.i += .01;
+           this.i += .001;
 
            return `rgb(${r}, ${g}, ${b})`;
        }
