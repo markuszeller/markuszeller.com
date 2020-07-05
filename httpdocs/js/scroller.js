@@ -469,7 +469,7 @@ window.addEventListener("load", function()
             r = this.col[0]/this.res * i;
             g = this.col[1]/this.res * i;
             b = this.col[2]/this.res * i;
-            ctx1.fillStyle = "rgb(" + [r, g, b] + ")";
+            ctx1.fillStyle = `rgb(${r},${g},${b})`;
             ctx1.fillRect(0, this.y + ys, w, 4);
             ys += 4;
             i++;
@@ -479,7 +479,7 @@ window.addEventListener("load", function()
             r = this.col[0]/this.res * i;
             g = this.col[1]/this.res * i;
             b = this.col[2]/this.res * i;
-            ctx1.fillStyle = "rgb(" + [r, g, b] + ")";
+            ctx1.fillStyle = `rgb(${r},${g},${b})`;
             ctx1.fillRect(0, this.y + ys, w, 4);
             ys += 4;
         }
