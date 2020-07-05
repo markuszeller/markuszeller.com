@@ -537,7 +537,7 @@ window.addEventListener("load", function()
         this.raw[11] = "                 `-----\'\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF    \u00AF\u00AF\u00AF\u00AF";
 
         this.chars = [];
-        this.minFs = 12;
+        this.minFs = 24;
         this.cw = 66;
         this.sx = .75;
         this.sy = 1.25;
@@ -562,20 +562,21 @@ window.addEventListener("load", function()
         {
             if(!this.run) return;
 
-            let fs = Math.floor(ow / this.cw);
+            let fs = Math.floor(ow / this.cw) * 2;
             if(fs < this.minFs) fs = this.minFs;
+            let fsh = fs/2;
 
-            let xoff = w/2 - (fs * this.cw * this.sx * .5);
-            let yoff = y - (fs * this.raw.length * this.sy * .5);
-            let ax = (w - (fs * this.cw * this.sx)) * .5;
+            let xoff = w/2 - (fsh * this.cw * this.sx * .5);
+            let yoff = fs * this.raw.length * .5;
+            let ax = (w - (fsh * this.cw * this.sx)) * .5;
             this.amp -= 1;
             if(this.amp < ax) this.amp = ax;
 
             for(let i = 0, s = 0, l = this.chars.length; i < l; i++)
             {
                 s += .01;
-                this.chars[i].x = (this.chars[i].x0 * fs * this.sx) + (fs * Math.sin(this.frame * .03 + s)) + xoff + (this.amp * Math.cos(this.frame * .02));
-                this.chars[i].y = (this.chars[i].y0 * fs * this.sy) + (fs * Math.cos(this.frame * .01 + s)) + yoff;
+                this.chars[i].x = (this.chars[i].x0 * fsh * this.sx) + (fsh * Math.sin(this.frame * .03 + s)) + xoff + (this.amp * Math.cos(this.frame * .02));
+                this.chars[i].y = (this.chars[i].y0 * fsh * this.sy) + (fsh * Math.cos(this.frame * .01 + s)) + yoff;
             }
 
         };
