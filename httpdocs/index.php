@@ -39,7 +39,7 @@ Thank you and have a nice trip in my space! Did you already try to move your mou
 written and produced by Markus Zeller, Forced Grooves Records. Because some people asked: Yes, it is my own voice. This song is also available in the podcast.
 </article>
 
-<article class="page">Hey, this site got a bit pimped inspired by the new ASCII Logo Michael aka SK!N made for me.
+<article class="page">New song ::: Maskentanz ::: A synth pop song powered by 303 bass. Sounds like 80s, but is new.
 </article>
 
 <article class="page">DJ N-4ceR and all you can (b)eat :::
