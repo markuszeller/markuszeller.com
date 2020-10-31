@@ -366,6 +366,10 @@ window.addEventListener("load", function() {
         this.col = [];
         this.visible = false;
         this.off = 0;
+        this.r = 0;
+        this.g = 0;
+        this.b = 0;
+        this.ys = 0;
     }
 
     Bar.prototype.init = function () {
@@ -409,25 +413,22 @@ window.addEventListener("load", function() {
         this.ys = 0;
         let i = 0;
 
-        while(i < this.res)
-        {
-            r = this.col[0]/this.res * i;
-            g = this.col[1]/this.res * i;
-            b = this.col[2]/this.res * i;
-            ctx1.fillStyle = `rgb(${r},${g},${b})`;
-            ctx1.fillRect(0, this.y + ys, w, 4);
-            ys += 4;
+        while (i < this.res) {
+            this.paint(i);
             i++;
         }
-        while(i--)
-        {
-            r = this.col[0]/this.res * i;
-            g = this.col[1]/this.res * i;
-            b = this.col[2]/this.res * i;
-            ctx1.fillStyle = `rgb(${r},${g},${b})`;
-            ctx1.fillRect(0, this.y + ys, w, 4);
-            ys += 4;
+        while (i--) {
+            this.paint(i);
         }
+    };
+
+    Bar.prototype.paint = function (i) {
+        this.r = this.col[0] / this.res * i;
+        this.g = this.col[1] / this.res * i;
+        this.b = this.col[2] / this.res * i;
+        ctx1.fillStyle = `rgb(${this.r},${this.g},${this.b})`;
+        ctx1.fillRect(0, this.y + this.ys, w, 4);
+        this.ys += 4;
     };
 //endregion
 
