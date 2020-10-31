@@ -1,5 +1,5 @@
-<?php define('BUILD', 54); ?><!DOCTYPE html>
-<html>
+<?php define('BUILD', 55); ?><!DOCTYPE html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:title" content="Markus Zeller">
