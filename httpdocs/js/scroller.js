@@ -1,87 +1,86 @@
 "use strict";
-window.addEventListener("load", function()
-{
+window.addEventListener("load", function() {
 // region globals
-    var sprite = document.getElementById("sprite");
-    var starCount = 300;
-    var barCount = 2;
-    var barVisible = 0;
-    var stars = [];
-    var pages = [];
-    var profiles = [];
-    var bars = [];
-    var shot = -1;
-    var page = -1;
-    var rainbow;
-    var i, l, dx, dy;
-    var mx = -1;
-    var ox = -1;
-    var my = -1;
-    var oy = -1;
-    var frame = 0;
-    var fs = 32;
-    var hfs = fs*.5;
-    var sin = 0;
-    var sinDir = 1;
-    var sFontY = 16;
-    var touched = false;
-    var clicked = false;
-    var pi2 = Math.PI * 2;
+    let build = 55;
+    let sprite = new Image();
+    sprite.addEventListener('load', function() {
+        window.requestAnimationFrame(animate);
+    });
+    sprite.src = 'img/sprite.png?v=' + build;
+    let starCount = 300;
+    let barCount = 2;
+    let barVisible = 0;
+    let stars = [];
+    let pages = [];
+    let profiles = [];
+    let bars = [];
+    let shot = -1;
+    let page = -1;
+    let rainbow;
+    let i, l, dx, dy;
+    let mx = -1;
+    let ox = -1;
+    let my = -1;
+    let oy = -1;
+    let frame = 0;
+    let fs = 32;
+    let hfs = fs * .5;
+    let sin = 0;
+    let sinDir = 1;
+    let sFontY = 16;
+    let touched = false;
+    let clicked = false;
 
-    var w = document.documentElement.clientWidth;
-    var h = document.documentElement.clientHeight;
-    var y = h * .5;
-    var ow = w;
-    var oh = h;
+    let w = document.documentElement.clientWidth;
+    let h = document.documentElement.clientHeight;
+    let y = h * .5;
+    let ow = w;
+    let oh = h;
 
 //endregion
 
 //region Scroller Init
-    var chars = " ?!\"=/%-'(),.:;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var text = document.getElementById("text").firstChild.nodeValue;
+    let chars = " ?!\"=/%-'(),.:;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let text = document.getElementById("text").firstChild.nodeValue;
 
-    var ctrlEsc = String.fromCharCode(27);
-    var ctrlLf = String.fromCharCode(10);
+    let ctrlEsc = String.fromCharCode(27);
 
-    var spaces = "";
-    for(i = 0, l = w / fs + 1; i < l; i++) spaces += " ";
+    let spaces = "";
+    for (i = 0, l = w / fs + 1; i < l; i++) spaces += " ";
     text = spaces + text + spaces + ctrlEsc;
     text = text.toUpperCase();
 //endregion
 
 //region canvas
-    var canvas1 = document.body.appendChild(document.createElement("canvas"));
+    let canvas1 = document.body.appendChild(document.createElement("canvas"));
     let audio = document.getElementById('audio');
     canvas1.width = w;
     canvas1.height = h;
     canvas1.style.position = "fixed";
-    canvas1.style.top = 0;
-    canvas1.style.left = 0;
+    canvas1.style.top = '0';
+    canvas1.style.left = '0';
 
     canvas1.addEventListener("mousemove", mouseHandler);
-    canvas1.addEventListener("touchend", function(e)
-    {
+    canvas1.addEventListener("touchend", function (e) {
         // e.preventDefault();
         mouseHandler(e.changedTouches[0]);
         touched = true;
         clearTouch();
     });
-    canvas1.addEventListener("click", function()
-    {
+    canvas1.addEventListener("click", function () {
         clicked = true;
         clearTouch();
     });
 
-    var ctx1 = canvas1.getContext("2d");
+    let ctx1 = canvas1.getContext("2d");
 //endregion
 
 //region Ship
-    function Ship()
-    {
+    function Ship() {
         this.size = 128;
-        this.x = w/2 - this.size - this.size/2;
+        this.x = w / 2 - this.size - this.size / 2;
         this.y = -this.size;
-        this.acc = h/this.size/2;
+        this.acc = h / this.size / 2;
         this.vel = 16;
         this.frame = 0;
         this.visible = true;
@@ -92,38 +91,31 @@ window.addEventListener("load", function()
         this.forwards = true;
     }
 
-    Ship.prototype.update = function ()
-    {
-        if(!this.visible) return;
-        var anim = 0 === frame % 4;
-        if(this.forwards && anim)
-        {
+    Ship.prototype.update = function () {
+        if (!this.visible) return;
+        let anim = 0 === frame % 4;
+        if (this.forwards && anim) {
             this.frame++;
-            if(this.frame > 7) this.frame = 0;
+            if (this.frame > 7) this.frame = 0;
         }
-        if(!this.forwards && anim)
-        {
+        if (!this.forwards && anim) {
             this.frame--;
-            if(this.frame < 0) this.frame = 7;
+            if (this.frame < 0) this.frame = 7;
         }
 
-        switch(this.scene)
-        {
+        switch (this.scene) {
             case 0:
-                if(this.y < h - this.size)
-                {
+                if (this.y < h - this.size) {
                     this.y += 1;
                     this.acc -= .01;
-                } else if(this.frame === 0 && anim) this.scene++;
-                if(this.acc > 0) this.y += this.acc;
-                if(this.vel > 0) this.vel -= .1;
+                } else if (this.frame === 0 && anim) this.scene++;
+                if (this.acc > 0) this.y += this.acc;
+                if (this.vel > 0) this.vel -= .1;
                 break;
 
             case 1:
-                if(anim)
-                {
-                    if(this.freeze++ >= 7)
-                    {
+                if (anim) {
+                    if (this.freeze++ >= 7) {
                         this.freeze = 0;
                         this.scene++;
                         runner.y = this.y;
@@ -133,15 +125,12 @@ window.addEventListener("load", function()
                 break;
 
             case 2:
-                if(anim)
-                {
-                    if(this.freeze++ > 40 && this.frame === 0)
-                    {
+                if (anim) {
+                    if (this.freeze++ > 40 && this.frame === 0) {
                         runner.visible = true;
                         runner.beam = true;
                     }
-                    if(this.freeze++ > 120 && this.frame === 0)
-                    {
+                    if (this.freeze++ > 120 && this.frame === 0) {
                         this.forwards = false;
                         this.freeze = 0;
                         runner.beam = false;
@@ -152,10 +141,8 @@ window.addEventListener("load", function()
                 break;
 
             case 3:
-                if(anim)
-                {
-                    if(this.freeze++ >= 7)
-                    {
+                if (anim) {
+                    if (this.freeze++ >= 7) {
                         this.scene++;
                         this.acc = 0;
                         this.vel = 0;
@@ -165,21 +152,16 @@ window.addEventListener("load", function()
                 break;
 
             case 4:
-                if(this.y > - this.size)
-                {
+                if (this.y > -this.size) {
                     this.y -= 1;
                     this.acc += .02;
-                    if(this.acc > 0) this.y -= this.acc;
+                    if (this.acc > 0) this.y -= this.acc;
                     this.vel += .01;
-                }
-                else
-                {
+                } else {
                     this.visible = false;
-                    if(!bars.length)
-                    {
-                        var b;
-                        for(i = 0; i < barCount; i++)
-                        {
+                    if (!bars.length) {
+                        let b;
+                        for (i = 0; i < barCount; i++) {
                             b = new Bar();
                             b.init();
                             b.visible = true;
@@ -191,19 +173,17 @@ window.addEventListener("load", function()
                 break;
         }
 
-        this.x += Math.sin(frame/8) * this.vel;
+        this.x += Math.sin(frame / 8) * this.vel;
     };
 
-    Ship.prototype.draw = function()
-    {
-        if(!this.visible) return;
+    Ship.prototype.draw = function () {
+        if (!this.visible) return;
         ctx1.drawImage(sprite, this.size * this.frame, this.yoffs[this.scene], this.size, this.size, this.x, this.y, this.size, this.size);
     };
 //endregion
 
 //region Profile
-    function Profile(el)
-    {
+    function Profile(el) {
         this.el = el;
         this.xoffs = profiles.length * 32;
         this.y = h;
@@ -217,8 +197,7 @@ window.addEventListener("load", function()
         this.acc = 0;
     }
 
-    Profile.prototype.init = function()
-    {
+    Profile.prototype.init = function () {
         this.y = h - fs;
         this.visible = true;
         this.vel = .5 + Math.random();
@@ -229,181 +208,156 @@ window.addEventListener("load", function()
         this.acc = 1 + Math.random() * 2;
     };
 
-    Profile.prototype.draw = function()
-    {
-        if(!this.visible) return;
+    Profile.prototype.draw = function () {
+        if (!this.visible) return;
 
         ctx1.drawImage(sprite, this.xoffs, 49, fs, fs, this.x, this.y, this.size, this.size);
     };
 
-    Profile.prototype.update = function()
-    {
-        var i,l, fitX, fitY, cos;
-        if(!this.visible) return;
+    Profile.prototype.update = function () {
+        let i, l, fitX, fitY, cos;
+        if (!this.visible) return;
 
-        if(mx && my && mx > this.x && mx < this.x + fs && my > this.y && my < this.y + fs)
-        {
-            if(touched)
-            {
+        if (mx && my && mx > this.x && mx < this.x + fs && my > this.y && my < this.y + fs) {
+            if (touched) {
                 touched = clicked = false;
                 document.location.href = this.el.href;
             }
-            if(clicked)
-            {
+            if (clicked) {
                 this.el.click();
                 touched = clicked = false;
             }
             return;
         }
 
-        if(this.acc > 0)
-        {
+        if (this.acc > 0) {
             this.acc -= .01;
             this.y -= this.acc;
         }
         this.vel -= .001;
-        if(this.vel < 0) this.vel -= .002;
+        if (this.vel < 0) this.vel -= .002;
         this.y -= this.step > fs ? this.vel : .5;
-        if(this.y < -fs || this.y > h) this.die = true;
+        if (this.y < -fs || this.y > h) this.die = true;
 
         this.coll = false;
-        for(i = 0, l = profiles.length; i < l; i++)
-        {
+        for (i = 0, l = profiles.length; i < l; i++) {
             fitX = profiles[i].x + fs >= this.x && profiles[i].x < this.x + fs;
             fitY = profiles[i].y + fs >= this.y && profiles[i].y <= this.y + fs;
-            if(profiles[i].visible && profiles[i].xoffs !== this.xoffs && fitX && fitY)
-            {
+            if (profiles[i].visible && profiles[i].xoffs !== this.xoffs && fitX && fitY) {
                 this.coll = this.vel > 0 && Math.random() > .9;
                 break;
             }
         }
 
         cos = Math.cos(this.step * .05);
-        if(this.coll)
-        {
-            if(this.step > fs*2) this.die = true;
+        if (this.coll) {
+            if (this.step > fs * 2) this.die = true;
         }
 
-        if (this.step > fs)
-        {
+        if (this.step > fs) {
             if (this.vel > 0) this.x += Math.abs(this.vel * fs) * cos / profiles.length;
             else this.y += Math.abs(this.vel * this.vel * this.vel);
-        }
-        else this.x = runner.x + (runner.dir > 0 ? runner.w * runner.dir : 0);
+        } else this.x = runner.x + (runner.dir > 0 ? runner.w * runner.dir : 0);
 
         this.step++;
 
-        if(this.step < fs) this.size++;
-        if(this.die)
-        {
+        if (this.step < fs) this.size++;
+        if (this.die) {
             this.size--;
-            if(this.size === 0) this.visible = false;
+            if (this.size === 0) this.visible = false;
         }
     };
 //endregion
 
 //region Runner
-    function Runner()
-    {
+    function Runner() {
         this.frame = 0;
         this.frames = 11;
         this.dir = 1;
         this.w = 44;
         this.h = 37;
-        this.x = w/2 - 28;
+        this.x = w / 2 - 28;
         this.visible = false;
         this.run = false;
         this.y = h;
         this.beam = false;
     }
 
-    Runner.prototype.draw = function()
-    {
-        if(!this.visible) return;
+    Runner.prototype.draw = function () {
+        if (!this.visible) return;
 
         ctx1.drawImage(sprite, this.w * this.frame + (this.dir < 0 ? this.w * this.frames : 0), 82, this.w, this.h, this.x, this.y, this.w, this.h);
     };
 
-    Runner.prototype.update = function()
-    {
-        if(!this.visible) return;
+    Runner.prototype.update = function () {
+        if (!this.visible) return;
 
-        var footY = h - this.h;
-        if(this.beam)
-        {
+        let footY = h - this.h;
+        if (this.beam) {
             this.y += .6;
-            if(this.y > footY)
-            {
+            if (this.y > footY) {
                 this.y = footY;
             }
             return;
         }
 
-        if(0 === frame%8) this.frame += this.dir;
-        if(this.frame >= this.frames) this.frame = 0;
-        if(this.frame < 0) this.frame = this.frames - 1;
+        if (0 === frame % 8) this.frame += this.dir;
+        if (this.frame >= this.frames) this.frame = 0;
+        if (this.frame < 0) this.frame = this.frames - 1;
         this.x += this.dir;
 
-        if(this.x > w - this.w) {
+        if (this.x > w - this.w) {
             this.x = w - this.w;
             this.dir = -1;
         }
-        if(this.x < 0)
-        {
+        if (this.x < 0) {
             this.x = 0;
             this.dir = 1;
         }
     };
 
-    Runner.prototype.resize = function()
-    {
+    Runner.prototype.resize = function () {
         this.y = h - this.h;
     };
 
 //endregion
 
 //region Page
-    function Page(text)
-    {
+    function Page(text) {
         this.text = text.toUpperCase();
         this.pos = 0;
         this.frame = 0;
     }
 
-    Page.prototype.draw = function()
-    {
+    Page.prototype.draw = function () {
         let x = -hfs - this.frame;
         let y = hfs * Math.sin(this.frame * .01) + hfs + hfs;
 
-        for(let i = Math.floor(this.pos), l = this.text.length; i < l; i++)
-        {
+        for (let i = Math.floor(this.pos), l = this.text.length; i < l; i++) {
             let c = this.text[i];
             let fx = chars.indexOf(c);
-            if(fx === -1) fx = 0;
+            if (fx === -1) fx = 0;
             x += hfs;
-            if(x < -hfs) continue;
+            if (x < -hfs) continue;
             ctx1.drawImage(sprite, fx * hfs, 0, hfs, hfs, x, y, hfs, hfs);
         }
     };
 
-    Page.prototype.init = function()
-    {
+    Page.prototype.init = function () {
         page++;
-        if(page >= pages.length) page = 0;
+        if (page >= pages.length) page = 0;
         pages[page].pos = 0;
         pages[page].frame = -w - hfs;
     };
 
-    Page.prototype.update = function()
-    {
+    Page.prototype.update = function () {
         this.frame += 3;
-        if(this.frame > hfs * this.text.length) this.init();
+        if (this.frame > hfs * this.text.length) this.init();
     };
 //endregion
 
 //region Bar
-    function Bar()
-    {
+    function Bar() {
         this.h = 32;
         this.res = 4;
         this.vel = .5;
@@ -414,18 +368,15 @@ window.addEventListener("load", function()
         this.off = 0;
     }
 
-    Bar.prototype.init = function()
-    {
-        var v = 0;
-        var c, i;
+    Bar.prototype.init = function () {
+        let v = 0;
+        let c, i;
         this.y = -Math.random() * y - this.h - this.h;
         this.off = 0;
 
-        while(!v)
-        {
+        while (!v) {
             this.col = [];
-            for(i=0; i < 3; i++)
-            {
+            for (i = 0; i < 3; i++) {
                 c = Math.random() > .5;
                 v += c;
                 this.col.push(c * 255);
@@ -436,33 +387,27 @@ window.addEventListener("load", function()
         barVisible--;
     };
 
-    Bar.prototype.update = function()
-    {
-        if(!this.visible) return;
+    Bar.prototype.update = function () {
+        if (!this.visible) return;
 
         this.vel += .1 * this.velDir;
         this.y += this.vel * this.velDir;
 
-        if(this.y > h + this.h)
-        {
-            this.vel *= .7 + Math.random()*.2;
+        if (this.y > h + this.h) {
+            this.vel *= .7 + Math.random() * .2;
             this.velDir *= -1;
             this.y = h + this.h;
-            if(this.off++ > this.h)
-            {
+            if (this.off++ > this.h) {
                 this.init();
             }
-        }
-        else this.off = 0;
+        } else this.off = 0;
     };
 
-    Bar.prototype.draw = function()
-    {
-        if(!this.visible) return;
+    Bar.prototype.draw = function () {
+        if (!this.visible) return;
 
-        var ys = 0;
-        var i = 0;
-        var r,g,b;
+        this.ys = 0;
+        let i = 0;
 
         while(i < this.res)
         {
@@ -502,20 +447,20 @@ window.addEventListener("load", function()
 
 //region RainbowColor
     function RainbowColor() {
-       this.freq = Math.PI/2 * .1;
-       this.w = 127;
-       this.c = 128;
-       this.i = 0;
+        this.freq = Math.PI/2 * .1;
+        this.w = 127;
+        this.c = 128;
+        this.i = 0;
 
-       RainbowColor.prototype.getRGBColorString = function(phase)
-       {
-           let r = Math.sin(this.freq * this.i + 2 + phase) * this.w + this.c;
-           let g = Math.sin(this.freq * this.i + phase) * this.w + this.c;
-           let b = Math.sin(this.freq * this.i + 4 + phase) * this.w + this.c;
-           this.i += .001;
+        RainbowColor.prototype.getRGBColorString = function(phase)
+        {
+            let r = Math.sin(this.freq * this.i + 2 + phase) * this.w + this.c;
+            let g = Math.sin(this.freq * this.i + phase) * this.w + this.c;
+            let b = Math.sin(this.freq * this.i + 4 + phase) * this.w + this.c;
+            this.i += .001;
 
-           return `rgb(${r}, ${g}, ${b})`;
-       }
+            return `rgb(${r}, ${g}, ${b})`;
+        }
     }
 //endregion
 
@@ -683,7 +628,7 @@ window.addEventListener("load", function()
         stars.push(new Star(Math.random()*w, Math.random()*h, Math.random()*.01, Math.random(), Math.random()*4, Math.random()*2));
     }
 
-    var p = document.querySelectorAll('article.page');
+    let p = document.querySelectorAll('article.page');
     for(i = 0, l = p.length; i < l; i++)
     {
         pages.push(new Page(p[i].firstChild.nodeValue));
@@ -696,11 +641,11 @@ window.addEventListener("load", function()
         profiles.push(new Profile(p[i]));
     }
 
-    var ship = new Ship();
-    var runner = new Runner();
+    let ship = new Ship();
+    let runner = new Runner();
 
     rainbow = new RainbowColor();
-    var ascii = new Ascii();
+    let ascii = new Ascii();
     ascii.init();
 
     let speaker = new Speaker();
@@ -751,7 +696,7 @@ window.addEventListener("load", function()
         ctx1.fillStyle = "#000";
         ctx1.clearRect(0,0,w,h);
 
-        var c, fx, i, j, x, xoffs, yoffs;
+        let c, fx, i, x, xoffs, yoffs;
 
         stars.forEach(function(star)
         {
@@ -815,7 +760,7 @@ window.addEventListener("load", function()
 //region resizeHandler
     window.addEventListener("resize", function()
     {
-        var sw, sy, st;
+        let sw, sy;
         w = canvas1.width = document.documentElement.clientWidth;
         h = canvas1.height = document.documentElement.clientHeight;
         y = h*.5;
@@ -838,8 +783,7 @@ window.addEventListener("load", function()
     {
         if(runner.run)
         {
-            var i, j;
-            for(i = 0, l = profiles.length; i < l; i++)
+            for(let i = 0, l = profiles.length; i < l; i++)
             {
                 shot++;
                 if(shot > l) shot = 0;
@@ -853,10 +797,4 @@ window.addEventListener("load", function()
     }
     window.setTimeout(shoot, 2000 + Math.random()* 2000);
 //endregion
-
-//region start
-
-    window.requestAnimationFrame(animate);
-//endregion
-
 });
