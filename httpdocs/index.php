@@ -26,7 +26,6 @@ Here you'll find some of my public projects and official social pages like Faceb
 <audio id="audio">
     <source src="/img/LifeIsJustAGame.mp3" type="audio/mp3">
 </audio>
-<img id="sprite" src="/img/sprite.png?v=<?php echo BUILD; ?>" alt="sprite, cola, fanta, ZERO!">
 
 <a id="url" target="_blank"></a>
 
