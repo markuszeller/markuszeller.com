@@ -1,6 +1,6 @@
 "use strict";
 window.addEventListener("load", function() {
-// region globals
+
     let build = 55;
     let sprite = new Image();
     sprite.addEventListener('load', function() {
@@ -37,9 +37,6 @@ window.addEventListener("load", function() {
     let ow = w;
     let oh = h;
 
-//endregion
-
-//region Scroller Init
     let chars = " ?!\"=/%-'(),.:;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let text = document.getElementById("text").firstChild.nodeValue;
 
@@ -49,9 +46,7 @@ window.addEventListener("load", function() {
     for (i = 0, l = w / fs + 1; i < l; i++) spaces += " ";
     text = spaces + text + spaces + ctrlEsc;
     text = text.toUpperCase();
-//endregion
 
-//region canvas
     let canvas1 = document.body.appendChild(document.createElement("canvas"));
     let audio = document.getElementById('audio');
     canvas1.width = w;
@@ -73,9 +68,7 @@ window.addEventListener("load", function() {
     });
 
     let ctx1 = canvas1.getContext("2d");
-//endregion
 
-//region Ship
     function Ship() {
         this.size = 128;
         this.x = w / 2 - this.size - this.size / 2;
@@ -180,9 +173,7 @@ window.addEventListener("load", function() {
         if (!this.visible) return;
         ctx1.drawImage(sprite, this.size * this.frame, this.yoffs[this.scene], this.size, this.size, this.x, this.y, this.size, this.size);
     };
-//endregion
 
-//region Profile
     function Profile(el) {
         this.el = el;
         this.xoffs = profiles.length * 32;
@@ -267,9 +258,7 @@ window.addEventListener("load", function() {
             if (this.size === 0) this.visible = false;
         }
     };
-//endregion
 
-//region Runner
     function Runner() {
         this.frame = 0;
         this.frames = 11;
@@ -320,9 +309,6 @@ window.addEventListener("load", function() {
         this.y = h - this.h;
     };
 
-//endregion
-
-//region Page
     function Page(text) {
         this.text = text.toUpperCase();
         this.pos = 0;
@@ -354,9 +340,7 @@ window.addEventListener("load", function() {
         this.frame += 3;
         if (this.frame > hfs * this.text.length) this.init();
     };
-//endregion
 
-//region Bar
     function Bar() {
         this.h = 32;
         this.res = 4;
@@ -430,9 +414,7 @@ window.addEventListener("load", function() {
         ctx1.fillRect(0, this.y + this.ys, w, 4);
         this.ys += 4;
     };
-//endregion
 
-//region Star
     function Star(x, y, velocity, brightness, size, acc)
     {
         this.x = x;
@@ -444,9 +426,7 @@ window.addEventListener("load", function() {
         this.initAcc = acc;
         this.tail = 0;
     }
-//endregion
 
-//region RainbowColor
     function RainbowColor() {
         this.freq = Math.PI/2 * .1;
         this.w = 127;
@@ -463,9 +443,7 @@ window.addEventListener("load", function() {
             return `rgb(${r}, ${g}, ${b})`;
         }
     }
-//endregion
 
-//region Ascii
     function Ascii()
     {
         this.raw = [];
@@ -546,9 +524,7 @@ window.addEventListener("load", function() {
             }
         };
     }
-//endregion
 
-//region AsciiChar
     function AsciiChar(char, x0, y0)
     {
         this.c = char;
@@ -557,9 +533,7 @@ window.addEventListener("load", function() {
         this.x = 0;
         this.y = 0;
     }
-//endregion
 
-//region Speaker
     function Speaker()
     {
         this.isOn = false;
@@ -621,9 +595,7 @@ window.addEventListener("load", function() {
         };
 
     }
-//endregion
 
-//region Init
     for(i=0; i<starCount; i++)
     {
         stars.push(new Star(Math.random()*w, Math.random()*h, Math.random()*.01, Math.random(), Math.random()*4, Math.random()*2));
@@ -651,9 +623,6 @@ window.addEventListener("load", function() {
 
     let speaker = new Speaker();
 
-//endregion
-
-//region update
     function update()
     {
         dx = ox - mx;
@@ -689,9 +658,7 @@ window.addEventListener("load", function() {
         ascii.update();
         speaker.update();
     }
-//endregion
 
-//region draw
     function draw()
     {
         ctx1.fillStyle = "#000";
@@ -732,18 +699,14 @@ window.addEventListener("load", function() {
         ship.draw();
         speaker.draw();
     }
-//endregion
 
-//region animate
     function animate()
     {
         update();
         draw();
         window.requestAnimationFrame(animate);
     }
-//endregion
 
-//region mouseHandler
     function mouseHandler(e)
     {
         mx = e.clientX;
@@ -756,9 +719,7 @@ window.addEventListener("load", function() {
     {
         window.setTimeout(function() { touched = clicked = false; }, 200);
     }
-//endregion
 
-//region resizeHandler
     window.addEventListener("resize", function()
     {
         let sw, sy;
@@ -777,9 +738,7 @@ window.addEventListener("load", function() {
         });
         runner.resize();
     });
-//endregion
 
-// region Profile generator
     function shoot()
     {
         if(runner.run)
@@ -797,5 +756,5 @@ window.addEventListener("load", function() {
         window.setTimeout(shoot, 1000 + Math.random()* 2000);
     }
     window.setTimeout(shoot, 2000 + Math.random()* 2000);
-//endregion
+
 });
