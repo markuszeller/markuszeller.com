@@ -1,7 +1,7 @@
 "use strict";
 window.addEventListener("load", function() {
 
-    let build = 55;
+    let build = 56;
     let sprite = new Image();
     sprite.addEventListener('load', function() {
         window.requestAnimationFrame(animate);
