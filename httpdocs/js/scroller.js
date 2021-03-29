@@ -114,7 +114,6 @@ window.addEventListener("load", function () {
                         this.freeze = 0;
                         this.scene++;
                         runner.y = this.y;
-                        ascii.run = true;
                     }
                 }
                 break;
@@ -316,7 +315,6 @@ window.addEventListener("load", function () {
     function Page(text) {
         this.text = text.toUpperCase();
         this.pos = 0;
-        this.frame = 0;
     }
 
     Page.prototype.draw = function () {
@@ -430,100 +428,6 @@ window.addEventListener("load", function () {
         this.tail = 0;
     }
 
-    function RainbowColor() {
-        this.freq = Math.PI / 2 * .1;
-        this.w = 127;
-        this.c = 128;
-        this.i = 0;
-
-        RainbowColor.prototype.getRGBColorString = function (phase) {
-            let r = Math.sin(this.freq * this.i + 2 + phase) * this.w + this.c;
-            let g = Math.sin(this.freq * this.i + phase) * this.w + this.c;
-            let b = Math.sin(this.freq * this.i + 4 + phase) * this.w + this.c;
-            this.i += .001;
-
-            return `rgb(${r}, ${g}, ${b})`;
-        }
-    }
-
-    function Ascii() {
-        this.raw = [];
-        this.raw[0] = "            M  A  R  K  U  S  Z  E  L  L  E  R  .  C  O  M    )";
-        this.raw[1] = "           ____  ___________________    ______.___ _____    _((_";
-        this.raw[2] = "          _|   \\\/   |\\___  |\\___  _\/\u00AF\u00AF|\/ __\/  |  |\/  __\/   <_+@_>";
-        this.raw[3] = ".--\/\/-----\\_o       |\/  _  |\/  _  \\_  _   \\_  |  |____ \\__--<..>-.";
-        this.raw[4] = "|      ____|___\\\/___|______|___\/___\/__\/____|______   \/ o_\/       |";
-        this.raw[5] = "|      \\___  |  __  \\_ |___\/  |__|  __  \\____  _\/`------\'        |";
-        this.raw[6] = "|     __\/ ___|  _____\/ |  |o  |  |  _____\/  _  \\__               |";
-        this.raw[7] = "|     \\_  \\  |_____\\______|______|__________\/    \/               |";
-        this.raw[8] = "|sk!n  `------\' _| __  |\/     \\|   \\\/   |_  \u00AF\u00AF\u00AF\u00AF\u00AF                |";
-        this.raw[9] = "`------------()-\\_ |\/--|  \/\u00AF\\ o\\_       _\/-------\/-----\/\/--------\'";
-        this.raw[10] = "                 | \u00AF   |  \u00AF\u00AF\u00AF   \/__\\\/   |";
-        this.raw[11] = "                 `-----\'\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF\u00AF    \u00AF\u00AF\u00AF\u00AF";
-
-        this.chars = [];
-        this.minFs = 24;
-        this.cw = 66;
-        this.sx = .75;
-        this.sy = 1.25;
-        this.amp = w;
-        this.run = false;
-
-        Ascii.prototype.init = function () {
-            for (let y = 0, l = this.raw.length; y < l; y++) {
-                let r = this.raw[y];
-                for (let x = 0, rl = r.length; x < rl; x++) {
-                    if (r[x] === ' ') continue;
-                    this.chars.push(new AsciiChar(r[x], x, y));
-                }
-            }
-        };
-
-        Ascii.prototype.update = function () {
-            if (!this.run) return;
-
-            let fs = Math.floor(ow / this.cw) * 2;
-            if (fs < this.minFs) fs = this.minFs;
-            let fsh = fs / 2;
-
-            let xoff = w / 2 - (fsh * this.cw * this.sx * .5);
-            let yoff = fs * this.raw.length * .5;
-            let ax = (w - (fsh * this.cw * this.sx)) * .5;
-            this.amp -= 1;
-            if (this.amp < ax) this.amp = ax;
-
-            for (let i = 0, l = this.chars.length; i < l; i++) {
-                this.chars[i].x = (this.chars[i].x0 * fsh * this.sx) + (fsh * Math.cos(timeElapsed * .0025)) + xoff + +(this.amp * Math.cos(timeElapsed * .0008));
-                this.chars[i].y = (this.chars[i].y0 * fsh * this.sy) + (fsh * Math.sin(timeElapsed * .0013)) + yoff;
-            }
-
-        };
-
-        Ascii.prototype.draw = function () {
-            if (!this.run) return;
-
-            ctx1.font = ow / this.cw + 'px Courier Bold';
-            ctx1.fillStyle = rainbow.getRGBColorString(0);
-
-            for (let i = 0, c = 1, l = this.chars.length; i < l; i++) {
-                if (Math.abs(c - this.chars[i].y0) > 11) {
-                    ctx1.fillStyle = rainbow.getRGBColorString(c);
-                    c = 0;
-                }
-                c++;
-                ctx1.fillText(this.chars[i].c, this.chars[i].x, this.chars[i].y);
-            }
-        };
-    }
-
-    function AsciiChar(char, x0, y0) {
-        this.c = char;
-        this.x0 = x0;
-        this.y0 = y0;
-        this.x = 0;
-        this.y = 0;
-    }
-
     function Speaker() {
         this.isOn = false;
         this.srcX = 1050;
@@ -597,11 +501,6 @@ window.addEventListener("load", function () {
 
     let ship = new Ship();
     let runner = new Runner();
-
-    rainbow = new RainbowColor();
-    let ascii = new Ascii();
-    ascii.init();
-
     let speaker = new Speaker();
 
     function update() {
@@ -640,7 +539,6 @@ window.addEventListener("load", function () {
             b.update();
         });
 
-        ascii.update();
         speaker.update();
     }
 
@@ -674,7 +572,6 @@ window.addEventListener("load", function () {
                 if (c === ctrlEsc) frame = 0;
             }
         }
-        ascii.draw();
         runner.draw();
         pages[page].draw();
         profiles.forEach(function (p) {
