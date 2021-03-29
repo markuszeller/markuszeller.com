@@ -59,7 +59,6 @@ window.addEventListener("load", function() {
 
     canvas1.addEventListener("mousemove", mouseHandler);
     canvas1.addEventListener("touchend", function (e) {
-        // e.preventDefault();
         mouseHandler(e.changedTouches[0]);
         touched = true;
         clearTouch();
