@@ -30,6 +30,8 @@ window.addEventListener("load", function() {
     let sFontY = 16;
     let touched = false;
     let clicked = false;
+    let frameRate = 1000/60;
+    let timeElapsed = frameRate;
 
     let w = document.documentElement.clientWidth;
     let h = document.documentElement.clientHeight;
@@ -700,10 +702,13 @@ window.addEventListener("load", function() {
         speaker.draw();
     }
 
-    function animate()
+    function animate(t)
     {
-        update();
-        draw();
+        if(t - timeElapsed >= frameRate) {
+            update();
+            draw();
+            timeElapsed = t;
+        }
         window.requestAnimationFrame(animate);
     }
 
