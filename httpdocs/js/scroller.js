@@ -1,9 +1,9 @@
 "use strict";
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
 
     let build = 56;
     let sprite = new Image();
-    sprite.addEventListener('load', function() {
+    sprite.addEventListener('load', function () {
         window.requestAnimationFrame(animate);
     });
     sprite.src = 'img/sprite.png?v=' + build;
@@ -30,7 +30,8 @@ window.addEventListener("load", function() {
     let sFontY = 16;
     let touched = false;
     let clicked = false;
-    let frameRate = 1000/60;
+    let frameRate = 1000 / 60;
+    let fps = 60 / 1000;
     let timeElapsed = frameRate;
 
     let w = document.documentElement.clientWidth;
@@ -266,24 +267,29 @@ window.addEventListener("load", function() {
         this.dir = 1;
         this.w = 44;
         this.h = 37;
+        this.hh = 37 * .5;
         this.x = w / 2 - 28;
         this.visible = false;
         this.run = false;
         this.y = h;
         this.beam = false;
+        this.speed = this.w / frameRate * .5;
+        this.jumpY = 0;
     }
 
     Runner.prototype.draw = function () {
         if (!this.visible) return;
-
-        ctx1.drawImage(sprite, this.w * this.frame + (this.dir < 0 ? this.w * this.frames : 0), 82, this.w, this.h, this.x, this.y, this.w, this.h);
+        let frame = this.beam ? 0 : Math.floor(timeElapsed * (fps / this.frames) % this.frames);
+        ctx1.drawImage(sprite, this.dir > 0 ? frame * this.w : this.frames * this.w * 2 - (frame * this.w) - this.w, 82, this.w, this.h, this.x, this.y - this.jumpY, this.w, this.h);
     };
 
     Runner.prototype.update = function () {
         if (!this.visible) return;
+        this.jumpY = this.hh * Math.abs(Math.sin(timeElapsed * 0.0025));
 
         let footY = h - this.h;
         if (this.beam) {
+            this.jumpY = 0;
             this.y += .6;
             if (this.y > footY) {
                 this.y = footY;
@@ -291,10 +297,7 @@ window.addEventListener("load", function() {
             return;
         }
 
-        if (0 === frame % 8) this.frame += this.dir;
-        if (this.frame >= this.frames) this.frame = 0;
-        if (this.frame < 0) this.frame = this.frames - 1;
-        this.x += this.dir;
+        this.x += this.speed * (.5 * Math.cos(timeElapsed * 0.0025) + .5) * this.dir + this.dir;
 
         if (this.x > w - this.w) {
             this.x = w - this.w;
@@ -416,8 +419,7 @@ window.addEventListener("load", function() {
         this.ys += 4;
     };
 
-    function Star(x, y, velocity, brightness, size, acc)
-    {
+    function Star(x, y, velocity, brightness, size, acc) {
         this.x = x;
         this.y = y;
         this.velocity = velocity;
@@ -429,13 +431,12 @@ window.addEventListener("load", function() {
     }
 
     function RainbowColor() {
-        this.freq = Math.PI/2 * .1;
+        this.freq = Math.PI / 2 * .1;
         this.w = 127;
         this.c = 128;
         this.i = 0;
 
-        RainbowColor.prototype.getRGBColorString = function(phase)
-        {
+        RainbowColor.prototype.getRGBColorString = function (phase) {
             let r = Math.sin(this.freq * this.i + 2 + phase) * this.w + this.c;
             let g = Math.sin(this.freq * this.i + phase) * this.w + this.c;
             let b = Math.sin(this.freq * this.i + 4 + phase) * this.w + this.c;
@@ -445,8 +446,7 @@ window.addEventListener("load", function() {
         }
     }
 
-    function Ascii()
-    {
+    function Ascii() {
         this.raw = [];
         this.raw[0] = "            M  A  R  K  U  S  Z  E  L  L  E  R  .  C  O  M    )";
         this.raw[1] = "           ____  ___________________    ______.___ _____    _((_";
@@ -469,51 +469,44 @@ window.addEventListener("load", function() {
         this.amp = w;
         this.run = false;
 
-        Ascii.prototype.init = function()
-        {
-            for(let y = 0, l = this.raw.length; y < l; y++)
-            {
+        Ascii.prototype.init = function () {
+            for (let y = 0, l = this.raw.length; y < l; y++) {
                 let r = this.raw[y];
-                for(let x = 0, rl = r.length; x < rl; x++)
-                {
-                    if(r[x] === ' ') continue;
+                for (let x = 0, rl = r.length; x < rl; x++) {
+                    if (r[x] === ' ') continue;
                     this.chars.push(new AsciiChar(r[x], x, y));
                 }
             }
         };
 
-        Ascii.prototype.update = function()
-        {
-            if(!this.run) return;
+        Ascii.prototype.update = function () {
+            if (!this.run) return;
 
             let fs = Math.floor(ow / this.cw) * 2;
-            if(fs < this.minFs) fs = this.minFs;
-            let fsh = fs/2;
+            if (fs < this.minFs) fs = this.minFs;
+            let fsh = fs / 2;
 
-            let xoff = w/2 - (fsh * this.cw * this.sx * .5);
+            let xoff = w / 2 - (fsh * this.cw * this.sx * .5);
             let yoff = fs * this.raw.length * .5;
             let ax = (w - (fsh * this.cw * this.sx)) * .5;
             this.amp -= 1;
-            if(this.amp < ax) this.amp = ax;
+            if (this.amp < ax) this.amp = ax;
 
-            for(let i = 0, l = this.chars.length; i < l; i++)
-            {
-                this.chars[i].x = (this.chars[i].x0 * fsh * this.sx) + (fsh * Math.cos(timeElapsed * .0025)) + xoff + + (this.amp * Math.cos(timeElapsed * .0008));
+            for (let i = 0, l = this.chars.length; i < l; i++) {
+                this.chars[i].x = (this.chars[i].x0 * fsh * this.sx) + (fsh * Math.cos(timeElapsed * .0025)) + xoff + +(this.amp * Math.cos(timeElapsed * .0008));
                 this.chars[i].y = (this.chars[i].y0 * fsh * this.sy) + (fsh * Math.sin(timeElapsed * .0013)) + yoff;
             }
 
         };
 
-        Ascii.prototype.draw = function()
-        {
-            if(!this.run) return;
+        Ascii.prototype.draw = function () {
+            if (!this.run) return;
 
             ctx1.font = ow / this.cw + 'px Courier Bold';
             ctx1.fillStyle = rainbow.getRGBColorString(0);
 
-            for(let i = 0, c = 1, l = this.chars.length; i < l; i++)
-            {
-                if(Math.abs(c - this.chars[i].y0) > 11) {
+            for (let i = 0, c = 1, l = this.chars.length; i < l; i++) {
+                if (Math.abs(c - this.chars[i].y0) > 11) {
                     ctx1.fillStyle = rainbow.getRGBColorString(c);
                     c = 0;
                 }
@@ -523,8 +516,7 @@ window.addEventListener("load", function() {
         };
     }
 
-    function AsciiChar(char, x0, y0)
-    {
+    function AsciiChar(char, x0, y0) {
         this.c = char;
         this.x0 = x0;
         this.y0 = y0;
@@ -532,8 +524,7 @@ window.addEventListener("load", function() {
         this.y = 0;
     }
 
-    function Speaker()
-    {
+    function Speaker() {
         this.isOn = false;
         this.srcX = 1050;
         this.srcY = 120;
@@ -550,7 +541,7 @@ window.addEventListener("load", function() {
         this.cx = w - this.size - this.size;
         this.cy = this.hs;
 
-        Speaker.prototype.update = function() {
+        Speaker.prototype.update = function () {
 
             if (this.speed) {
                 this.speed += this.acc;
@@ -573,40 +564,34 @@ window.addEventListener("load", function() {
             this.x = this.cx + (this.hs * Math.sin(timeElapsed * .0005));
             this.y = this.cy + (this.hs * Math.cos(timeElapsed * .0005));
 
-            if(mx && my && mx > this.x && mx < this.x + this.size && my > this.y && my < this.y + this.size)
-            {
-                if(touched || clicked)
-                {
+            if (mx && my && mx > this.x && mx < this.x + this.size && my > this.y && my < this.y + this.size) {
+                if (touched || clicked) {
                     touched = clicked = false;
                     this.isOn = !this.isOn;
-                    if(this.isOn) audio.play(); else audio.pause();
+                    if (this.isOn) audio.play(); else audio.pause();
                     this.speed = this.acc;
                 }
             }
         };
 
-        Speaker.prototype.draw = function()
-        {
+        Speaker.prototype.draw = function () {
             ctx1.drawImage(sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
         };
 
     }
 
-    for(i=0; i<starCount; i++)
-    {
-        stars.push(new Star(Math.random()*w, Math.random()*h, Math.random()*.01, Math.random(), Math.random()*4, Math.random()*2));
+    for (i = 0; i < starCount; i++) {
+        stars.push(new Star(Math.random() * w, Math.random() * h, Math.random() * .01, Math.random(), Math.random() * 4, Math.random() * 2));
     }
 
     let p = document.querySelectorAll('article.page');
-    for(i = 0, l = p.length; i < l; i++)
-    {
+    for (i = 0, l = p.length; i < l; i++) {
         pages.push(new Page(p[i].firstChild.nodeValue));
     }
     pages[0].init();
 
     p = document.querySelectorAll("a.profile");
-    for(i = 0; i < p.length; i++)
-    {
+    for (i = 0; i < p.length; i++) {
         profiles.push(new Profile(p[i]));
     }
 
@@ -619,86 +604,88 @@ window.addEventListener("load", function() {
 
     let speaker = new Speaker();
 
-    function update()
-    {
+    function update() {
         dx = ox - mx;
         dy = oy - my;
         ox = mx;
         oy = my;
-        stars.forEach(function(star)
-        {
-            star.acc -= star.acc*.02;
-            if(dx > 0)
-            {
+        stars.forEach(function (star) {
+            star.acc -= star.acc * .02;
+            if (dx > 0) {
                 star.acc += dx * star.velocity * 5;
                 star.tail += dx * star.velocity * 3;
-                if(star.tail > 80) star.tail = 80;
+                if (star.tail > 80) star.tail = 80;
             }
-            star.tail -= star.tail *.05;
-            if(star.tail < 0) star.tail = 0;
-            if(star.acc < star.initAcc) star.acc = star.initAcc;
+            star.tail -= star.tail * .05;
+            if (star.tail < 0) star.tail = 0;
+            if (star.acc < star.initAcc) star.acc = star.initAcc;
             star.x -= star.velocity + star.acc;
-            if(star.x < -star.size - star.tail) star.x = w + star.velocity + star.acc;
-            if(dy) star.y += dy * .1;
+            if (star.x < -star.size - star.tail) star.x = w + star.velocity + star.acc;
+            if (dy) star.y += dy * .1;
         });
 
         sin += .002 * sinDir;
-        if(sin > 1 || sin < -1) sinDir *= -1;
+        if (sin > 1 || sin < -1) sinDir *= -1;
         pages[page].update();
         runner.update();
-        profiles.forEach(function(p) { p.update() });
+        profiles.forEach(function (p) {
+            p.update()
+        });
         ship.update();
-        if(!barVisible) bars.forEach(function(b) { b.visible = true; barVisible++ });
-        bars.forEach(function(b) { b.update(); });
+        if (!barVisible) bars.forEach(function (b) {
+            b.visible = true;
+            barVisible++
+        });
+        bars.forEach(function (b) {
+            b.update();
+        });
 
         ascii.update();
         speaker.update();
     }
 
-    function draw()
-    {
+    function draw() {
         ctx1.fillStyle = "#000";
-        ctx1.clearRect(0,0,w,h);
+        ctx1.clearRect(0, 0, w, h);
 
         let c, fx, i, x, xoffs, yoffs;
 
-        stars.forEach(function(star)
-        {
-            if(star.x < w && star.y > 0 && star.y < h)
-            {
+        stars.forEach(function (star) {
+            if (star.x < w && star.y > 0 && star.y < h) {
                 ctx1.fillStyle = "rgba(255, 255, 255, " + star.brightness + ")";
                 ctx1.fillRect(star.x, star.y, star.size + star.tail, star.size);
             }
         });
 
-        bars.forEach(function(b) { b.draw(); });
+        bars.forEach(function (b) {
+            b.draw();
+        });
 
         frame++;
         xoffs = w - 4 * frame;
-        for(i = 0; i < text.length; i++)
-        {
-            yoffs = y + Math.cos(frame*.04 + i*.1) * Math.sin(sin)*y - hfs;
+        for (i = 0; i < text.length; i++) {
+            yoffs = y + Math.cos(frame * .04 + i * .1) * Math.sin(sin) * y - hfs;
             c = text[i];
             fx = chars.indexOf(c);
-            if(fx === -1) fx = 0;
-            x = xoffs + i*fs;
-            if(x > -fs && x < w)
-            {
+            if (fx === -1) fx = 0;
+            x = xoffs + i * fs;
+            if (x > -fs && x < w) {
                 ctx1.drawImage(sprite, fx * fs, sFontY, fs, fs, x, yoffs, fs, fs);
-                if(c === ctrlEsc) frame = 0;
+                if (c === ctrlEsc) frame = 0;
             }
         }
         ascii.draw();
         runner.draw();
         pages[page].draw();
-        profiles.forEach(function(p) { p.draw() });
+        profiles.forEach(function (p) {
+            p.draw()
+        });
         ship.draw();
         speaker.draw();
     }
 
-    function animate(t)
-    {
-        if(t - timeElapsed >= frameRate) {
+    function animate(t) {
+        if (t - timeElapsed >= frameRate) {
             update();
             draw();
             timeElapsed = t;
@@ -706,54 +693,50 @@ window.addEventListener("load", function() {
         window.requestAnimationFrame(animate);
     }
 
-    function mouseHandler(e)
-    {
+    function mouseHandler(e) {
         mx = e.clientX;
-        if(ox === -1) ox = mx;
+        if (ox === -1) ox = mx;
         my = e.clientY;
-        if(oy === -1) oy = my;
+        if (oy === -1) oy = my;
     }
 
-    function clearTouch()
-    {
-        window.setTimeout(function() { touched = clicked = false; }, 200);
+    function clearTouch() {
+        window.setTimeout(function () {
+            touched = clicked = false;
+        }, 200);
     }
 
-    window.addEventListener("resize", function()
-    {
+    window.addEventListener("resize", function () {
         let sw, sy;
         w = canvas1.width = document.documentElement.clientWidth;
         h = canvas1.height = document.documentElement.clientHeight;
-        y = h*.5;
+        y = h * .5;
 
-        sw = w/ow;
-        sy = h/oh;
+        sw = w / ow;
+        sy = h / oh;
         ow = w;
         oh = h;
-        stars.forEach(function(s)
-        {
+        stars.forEach(function (s) {
             s.x *= sw;
             s.y *= sy;
         });
         runner.resize();
     });
 
-    function shoot()
-    {
-        if(runner.run)
-        {
-            for(let i = 0, l = profiles.length; i < l; i++)
-            {
+    function shoot() {
+        if (runner.run) {
+            for (let i = 0, l = profiles.length; i < l; i++) {
                 shot++;
-                if(shot > l) shot = 0;
-                if(profiles[i].visible) continue;
+                if (shot > l) shot = 0;
+                if (profiles[i].visible) continue;
 
                 profiles[i].init();
                 break;
             }
         }
-        window.setTimeout(shoot, 1000 + Math.random()* 2000);
+        window.setTimeout(shoot, 1000 + Math.random() * 2000);
     }
-    window.setTimeout(shoot, 2000 + Math.random()* 2000);
+
+    window.setTimeout(shoot, 2000 + Math.random() * 2000);
 
 });
