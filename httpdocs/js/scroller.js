@@ -37,6 +37,7 @@ window.addEventListener("load", function () {
     let w = document.documentElement.clientWidth;
     let h = document.documentElement.clientHeight;
     let y = h * .5;
+    let yh = y * .5;
     let ow = w;
     let oh = h;
 
@@ -562,7 +563,7 @@ window.addEventListener("load", function () {
         frame++;
         xoffs = w - 4 * frame;
         for (i = 0; i < text.length; i++) {
-            yoffs = y + Math.cos(frame * .04 + i * .1) * Math.sin(sin) * y - hfs;
+            yoffs = y + Math.cos(frame * .04 + i * .1) * Math.sin(sin) * yh - hfs;
             c = text[i];
             fx = chars.indexOf(c);
             if (fx === -1) fx = 0;
@@ -608,6 +609,7 @@ window.addEventListener("load", function () {
         w = canvas1.width = document.documentElement.clientWidth;
         h = canvas1.height = document.documentElement.clientHeight;
         y = h * .5;
+        yh = y * .5;
 
         sw = w / ow;
         sy = h / oh;
