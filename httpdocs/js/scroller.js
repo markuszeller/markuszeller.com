@@ -468,7 +468,6 @@ window.addEventListener("load", function() {
         this.sx = .75;
         this.sy = 1.25;
         this.amp = w;
-        this.frame = 0;
         this.run = false;
 
         Ascii.prototype.init = function()
@@ -498,11 +497,10 @@ window.addEventListener("load", function() {
             this.amp -= 1;
             if(this.amp < ax) this.amp = ax;
 
-            for(let i = 0, s = 0, l = this.chars.length; i < l; i++)
+            for(let i = 0, l = this.chars.length; i < l; i++)
             {
-                s += .01;
-                this.chars[i].x = (this.chars[i].x0 * fsh * this.sx) + (fsh * Math.sin(this.frame * .03 + s)) + xoff + (this.amp * Math.cos(this.frame * .02));
-                this.chars[i].y = (this.chars[i].y0 * fsh * this.sy) + (fsh * Math.cos(this.frame * .01 + s)) + yoff;
+                this.chars[i].x = (this.chars[i].x0 * fsh * this.sx) + (fsh * Math.cos(timeElapsed * .0025)) + xoff + + (this.amp * Math.cos(timeElapsed * .0008));
+                this.chars[i].y = (this.chars[i].y0 * fsh * this.sy) + (fsh * Math.sin(timeElapsed * .0013)) + yoff;
             }
 
         };
@@ -511,7 +509,6 @@ window.addEventListener("load", function() {
         {
             if(!this.run) return;
 
-            this.frame++;
             ctx1.font = ow / this.cw + 'px Courier Bold';
             ctx1.fillStyle = rainbow.getRGBColorString(0);
 
