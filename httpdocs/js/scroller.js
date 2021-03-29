@@ -542,7 +542,6 @@ window.addEventListener("load", function() {
         this.hs = this.size / 2;
         this.x = 0;
         this.y = 0;
-        this.frame = 0;
         this.speed = 0;
         this.acc = .5;
 
@@ -553,7 +552,6 @@ window.addEventListener("load", function() {
         this.cy = this.hs;
 
         Speaker.prototype.update = function() {
-            this.frame++;
 
             if (this.speed) {
                 this.speed += this.acc;
@@ -573,8 +571,8 @@ window.addEventListener("load", function() {
                 }
             }
 
-            this.x = this.cx + (this.hs * Math.sin(this.frame * .01));
-            this.y = this.cy + (this.hs * Math.cos(this.frame * .01));
+            this.x = this.cx + (this.hs * Math.sin(timeElapsed * .0005));
+            this.y = this.cy + (this.hs * Math.cos(timeElapsed * .0005));
 
             if(mx && my && mx > this.x && mx < this.x + this.size && my > this.y && my < this.y + this.size)
             {
