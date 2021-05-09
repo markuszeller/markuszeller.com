@@ -569,10 +569,10 @@ window.addEventListener("load", function () {
             b.draw();
         });
 
-        frame++;
-        xoffs = w - 4 * frame;
+        let bsFrame = frame * bigScrollerSpeed;
+        xoffs = w - bsFrame;
         for (i = 0; i < text.length; i++) {
-            yoffs = y + Math.cos(frame * .04 + i * .1) * Math.sin(sin) * yh - hfs;
+            yoffs = y + Math.cos((frame / bigScrollerSpeed) * .04 + i * .1) * Math.sin(sin) * yh - hfs;
             c = text[i];
             fx = chars.indexOf(c);
             if (fx === -1) fx = 0;
