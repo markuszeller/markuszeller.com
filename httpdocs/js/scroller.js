@@ -260,7 +260,6 @@ window.addEventListener("load", function () {
     };
 
     function Runner() {
-        this.frame = 0;
         this.frames = 11;
         this.dir = 1;
         this.w = 44;
@@ -271,7 +270,7 @@ window.addEventListener("load", function () {
         this.run = false;
         this.y = h;
         this.beam = false;
-        this.speed = this.w / frameRate * .5;
+        this.speed = fps * 8;
         this.jumpY = 0;
     }
 
@@ -295,7 +294,7 @@ window.addEventListener("load", function () {
             return;
         }
 
-        this.x += this.speed * (.5 * Math.cos(timeElapsed * 0.0025) + .5) * this.dir + this.dir;
+        this.x += this.speed * ((.5 * Math.cos(timeElapsed * 0.0025) + .5) * this.dir + this.dir);
 
         if (this.x > w - this.w) {
             this.x = w - this.w;
@@ -314,6 +313,7 @@ window.addEventListener("load", function () {
     function Page(text) {
         this.text = text.toUpperCase();
         this.pos = 0;
+        this.frame = 0;
     }
 
     Page.prototype.draw = function () {
