@@ -16,7 +16,6 @@ window.addEventListener("load", function () {
     let bars = [];
     let shot = -1;
     let page = -1;
-    let rainbow;
     let i, l, dx, dy;
     let mx = -1;
     let ox = -1;
