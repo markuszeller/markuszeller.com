@@ -159,7 +159,7 @@ window.addEventListener("load", function () {
                             let b;
                             for (i = 0; i < barCount; i++) {
                                 b = new Bar();
-                                b.init();
+                                b.reset();
                                 b.visible = true;
                                 barVisible++;
                                 bars.push(b);
@@ -358,78 +358,80 @@ window.addEventListener("load", function () {
         }
     }
 
-    function Bar() {
-        this.h = 32;
-        this.res = 4;
-        this.vel = .5;
-        this.velDir = 1;
-        this.y = 0;
-        this.col = [];
-        this.visible = false;
-        this.off = 0;
-        this.r = 0;
-        this.g = 0;
-        this.b = 0;
-        this.ys = 0;
-    }
-
-    Bar.prototype.init = function () {
-        this.y = -Math.random() * y - this.h - this.h;
-        this.off = 0;
-
-        let v = 0;
-        while (!v) {
+    class Bar {
+        constructor() {
+            this.h = 32;
+            this.res = 4;
+            this.vel = .5;
+            this.velDir = 1;
+            this.y = 0;
             this.col = [];
-            for (let i = 0; i < 3; i++) {
-                let c = Math.random() > .5;
-                v += c;
-                this.col.push(c * 255);
+            this.visible = false;
+            this.off = 0;
+            this.r = 0;
+            this.g = 0;
+            this.b = 0;
+            this.ys = 0;
+        }
+
+        reset() {
+            this.y = -Math.random() * y - this.h - this.h;
+            this.off = 0;
+
+            let v = 0;
+            while (!v) {
+                this.col = [];
+                for (let i = 0; i < 3; i++) {
+                    let c = Math.random() > .5;
+                    v += c;
+                    this.col.push(c * 255);
+                }
+            }
+            this.vel = 0;
+            this.visible = false;
+            barVisible--;
+        }
+
+        update() {
+            if (!this.visible) return;
+
+            this.vel += .01 * this.velDir;
+            this.y += this.vel * this.velDir;
+
+            if (this.y > h + this.h) {
+                this.vel *= .7 + Math.random() * .2;
+                this.velDir *= -1;
+                this.y = h + this.h;
+                if (this.off++ > this.h) {
+                    this.reset();
+                }
+            } else this.off = 0;
+        }
+
+        draw() {
+            if (!this.visible) return;
+
+            this.ys = 0;
+            let i = 0;
+
+            while (i < this.res) {
+                this.paint(i);
+                i++;
+            }
+            while (i--) {
+                this.paint(i);
             }
         }
-        this.vel = 0;
-        this.visible = false;
-        barVisible--;
-    };
 
-    Bar.prototype.update = function () {
-        if (!this.visible) return;
-
-        this.vel += .01 * this.velDir;
-        this.y += this.vel * this.velDir;
-
-        if (this.y > h + this.h) {
-            this.vel *= .7 + Math.random() * .2;
-            this.velDir *= -1;
-            this.y = h + this.h;
-            if (this.off++ > this.h) {
-                this.init();
-            }
-        } else this.off = 0;
-    };
-
-    Bar.prototype.draw = function () {
-        if (!this.visible) return;
-
-        this.ys = 0;
-        let i = 0;
-
-        while (i < this.res) {
-            this.paint(i);
-            i++;
+        paint(i) {
+            this.r = this.col[0] / this.res * i;
+            this.g = this.col[1] / this.res * i;
+            this.b = this.col[2] / this.res * i;
+            ctx1.fillStyle = `rgb(${this.r},${this.g},${this.b})`;
+            ctx1.fillRect(0, this.y + this.ys, w, 4);
+            this.ys += 4;
         }
-        while (i--) {
-            this.paint(i);
-        }
-    };
-
-    Bar.prototype.paint = function (i) {
-        this.r = this.col[0] / this.res * i;
-        this.g = this.col[1] / this.res * i;
-        this.b = this.col[2] / this.res * i;
-        ctx1.fillStyle = `rgb(${this.r},${this.g},${this.b})`;
-        ctx1.fillRect(0, this.y + this.ys, w, 4);
-        this.ys += 4;
-    };
+    }
 
     function Star(x, y, velocity, brightness, size, acc) {
         this.x = x;
