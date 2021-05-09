@@ -388,7 +388,7 @@ window.addEventListener("load", function () {
     Bar.prototype.update = function () {
         if (!this.visible) return;
 
-        this.vel += .1 * this.velDir;
+        this.vel += .01 * this.velDir;
         this.y += this.vel * this.velDir;
 
         if (this.y > h + this.h) {
