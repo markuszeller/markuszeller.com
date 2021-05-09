@@ -73,108 +73,110 @@ window.addEventListener("load", function () {
 
     let ctx1 = canvas1.getContext("2d");
 
-    function Ship() {
-        this.size = 128;
-        this.x = w / 2 - this.size - this.size / 2;
-        this.y = -this.size;
-        this.acc = h / this.size / 2;
-        this.vel = this.size;
-        this.frame = 0;
-        this.visible = true;
-        this.scene = 0;
-        this.freeze = 0;
-        this.yoffs = [120, 375, 247, 375, 120];
-        this.forwards = true;
-    }
-
-    Ship.prototype.update = function () {
-        if (!this.visible) return;
-        let anim = 0 === frame % 8;
-        if (this.forwards && anim) {
-            this.frame++;
-            if (this.frame > 7) this.frame = 0;
-        }
-        if (!this.forwards && anim) {
-            this.frame--;
-            if (this.frame < 0) this.frame = 7;
+    class Ship
+    {
+        constructor() {
+            this.size = 128;
+            this.x = w / 2 - this.size - this.size / 2;
+            this.y = -this.size;
+            this.acc = h / this.size / 2;
+            this.vel = this.size;
+            this.frame = 0;
+            this.visible = true;
+            this.scene = 0;
+            this.freeze = 0;
+            this.yoffs = [120, 375, 247, 375, 120];
+            this.forwards = true;
         }
 
-        switch (this.scene) {
-            case 0:
-                if (this.y < h - this.size) {
-                    this.y += 1;
-                    this.acc -= .01;
-                } else if (this.frame === 0 && anim) this.scene++;
-                if (this.acc > 0) this.y += this.acc;
-                if (this.vel > 0) this.vel -= .6;
-                break;
+        update() {
+            if (!this.visible) return;
+            let anim = 0 === frame % 8;
+            if (this.forwards && anim) {
+                this.frame++;
+                if (this.frame > 7) this.frame = 0;
+            }
+            if (!this.forwards && anim) {
+                this.frame--;
+                if (this.frame < 0) this.frame = 7;
+            }
 
-            case 1:
-                if (anim) {
-                    if (this.freeze++ >= 7) {
-                        this.freeze = 0;
-                        this.scene++;
-                        runner.y = this.y;
-                    }
-                }
-                break;
+            switch (this.scene) {
+                case 0:
+                    if (this.y < h - this.size) {
+                        this.y += 1;
+                        this.acc -= .01;
+                    } else if (this.frame === 0 && anim) this.scene++;
+                    if (this.acc > 0) this.y += this.acc;
+                    if (this.vel > 0) this.vel -= .6;
+                    break;
 
-            case 2:
-                if (anim) {
-                    if (this.freeze++ > 40 && this.frame === 0) {
-                        runner.visible = true;
-                        runner.beam = true;
-                    }
-                    if (this.freeze++ > 120 && this.frame === 0) {
-                        this.forwards = false;
-                        this.freeze = 0;
-                        runner.beam = false;
-                        runner.run = true;
-                        this.scene++;
-                    }
-                }
-                break;
-
-            case 3:
-                if (anim) {
-                    if (this.freeze++ >= 7) {
-                        this.scene++;
-                        this.acc = 0;
-                        this.vel = 0;
-                        runner.run = true;
-                    }
-                }
-                break;
-
-            case 4:
-                if (this.y > -this.size) {
-                    this.y -= 1;
-                    this.acc += .02;
-                    if (this.acc > 0) this.y -= this.acc;
-                    this.vel += .01;
-                } else {
-                    this.visible = false;
-                    if (!bars.length) {
-                        let b;
-                        for (i = 0; i < barCount; i++) {
-                            b = new Bar();
-                            b.init();
-                            b.visible = true;
-                            barVisible++;
-                            bars.push(b);
+                case 1:
+                    if (anim) {
+                        if (this.freeze++ >= 7) {
+                            this.freeze = 0;
+                            this.scene++;
+                            runner.y = this.y;
                         }
                     }
-                }
-                break;
+                    break;
+
+                case 2:
+                    if (anim) {
+                        if (this.freeze++ > 40 && this.frame === 0) {
+                            runner.visible = true;
+                            runner.beam = true;
+                        }
+                        if (this.freeze++ > 120 && this.frame === 0) {
+                            this.forwards = false;
+                            this.freeze = 0;
+                            runner.beam = false;
+                            runner.run = true;
+                            this.scene++;
+                        }
+                    }
+                    break;
+
+                case 3:
+                    if (anim) {
+                        if (this.freeze++ >= 7) {
+                            this.scene++;
+                            this.acc = 0;
+                            this.vel = 0;
+                            runner.run = true;
+                        }
+                    }
+                    break;
+
+                case 4:
+                    if (this.y > -this.size) {
+                        this.y -= 1;
+                        this.acc += .02;
+                        if (this.acc > 0) this.y -= this.acc;
+                        this.vel += .01;
+                    } else {
+                        this.visible = false;
+                        if (!bars.length) {
+                            let b;
+                            for (i = 0; i < barCount; i++) {
+                                b = new Bar();
+                                b.init();
+                                b.visible = true;
+                                barVisible++;
+                                bars.push(b);
+                            }
+                        }
+                    }
+                    break;
+            }
+            this.x = w * .5 - this.size * .5 + (Math.sin(frame / 16) * this.vel);
         }
 
-        this.x = w * .5 - this.size * .5 + (Math.sin(frame / 16) * this.vel);
-    };
-
-    Ship.prototype.draw = function () {
-        if (!this.visible) return;
-        ctx1.drawImage(sprite, this.size * this.frame, this.yoffs[this.scene], this.size, this.size, this.x, this.y, this.size, this.size);
-    };
+        draw() {
+            if (!this.visible) return;
+            ctx1.drawImage(sprite, this.size * this.frame, this.yoffs[this.scene], this.size, this.size, this.x, this.y, this.size, this.size);
+        }
+    }
 
     function Profile(el) {
         this.el = el;
