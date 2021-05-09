@@ -8,6 +8,7 @@ window.addEventListener("load", function () {
     });
     sprite.src = 'img/sprite.png?v=' + build;
     let starCount = 300;
+    let starTail = 8;
     let barCount = 2;
     let barVisible = 0;
     let stars = [];
@@ -426,7 +427,7 @@ window.addEventListener("load", function () {
         this.brightness = brightness;
         this.size = size;
         this.acc = acc;
-        this.initAcc = acc;
+        this.initAcc = this.acc;
         this.tail = 0;
     }
 
