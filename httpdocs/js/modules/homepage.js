@@ -62,7 +62,7 @@ export class Homepage {
         this.ow = this.w;
         this.oh = this.h;
 
-        window.addEventListener("resize", this.resize.bind(this));
+        addEventListener("resize", this.resize.bind(this));
     }
 
     createCanvas() {
@@ -109,7 +109,7 @@ export class Homepage {
 
     addSpriteEventListeners() {
         const me = this;
-        this.sprite.addEventListener('load', () => window.requestAnimationFrame(me.animate.bind(me)));
+        this.sprite.addEventListener('load', () => requestAnimationFrame(me.animate.bind(me)));
     }
 
     animate(t) {
@@ -120,7 +120,7 @@ export class Homepage {
             this.frame++;
         }
 
-        window.requestAnimationFrame(this.animate.bind(this));
+        requestAnimationFrame(this.animate.bind(this));
     }
 
     updateMouse() {
@@ -242,7 +242,7 @@ export class Homepage {
                 break;
             }
         }
-        window.setTimeout(this.shootProfile.bind(this), 1000 + Math.random() * 2000);
+        setTimeout(this.shootProfile.bind(this), 1000 + Math.random() * 2000);
     }
 
     initSpeaker() {
