@@ -233,15 +233,7 @@ window.addEventListener("load", function () {
         this.y -= this.step > fs ? this.vel : .5;
         if (this.y < -fs || this.y > h) this.die = true;
 
-        this.coll = false;
-        for (i = 0, l = profiles.length; i < l; i++) {
-            fitX = profiles[i].x + fs >= this.x && profiles[i].x < this.x + fs;
-            fitY = profiles[i].y + fs >= this.y && profiles[i].y <= this.y + fs;
-            if (profiles[i].visible && profiles[i].xoffs !== this.xoffs && fitX && fitY) {
-                this.coll = this.vel > 0 && Math.random() > .9;
-                break;
-            }
-        }
+        this.coll = this.detectCollision();
 
         cos = Math.cos(this.step * .05);
         if (this.coll) {
@@ -261,6 +253,18 @@ window.addEventListener("load", function () {
             if (this.size === 0) this.visible = false;
         }
     };
+
+    Profile.prototype.detectCollision = function () {
+        for (i = 0, l = profiles.length; i < l; i++) {
+            let fitX = profiles[i].x + fs >= this.x && profiles[i].x < this.x + fs;
+            let fitY = profiles[i].y + fs >= this.y && profiles[i].y <= this.y + fs;
+            if (profiles[i].visible && profiles[i].xoffs !== this.xoffs && fitX && fitY) {
+                this.coll = this.vel > 0 && Math.random() > .9;
+                return true;
+            }
+        }
+        return false;
+    }
 
     function Runner() {
         this.frames = 11;
