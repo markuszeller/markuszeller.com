@@ -4,6 +4,7 @@ import {Runner} from "/js/modules/runner.js";
 import {Star} from "/js/modules/star.js";
 import {Ship} from "/js/modules/ship.js";
 import {Bar} from "/js/modules/bar.js";
+import {Page} from "/js/modules/page.js";
 
 export class Homepage {
     constructor(build) {
@@ -25,11 +26,9 @@ export class Homepage {
         this.initRunner();
         this.initProfiles();
         this.initShip();
+        this.initSpeaker();
 
-
-        this.audio = document.getElementById('audio');
-
-        this.speaker = new Speaker(this, this.sprite);
+        this.initPages();
     }
 
     addUpdateSubscriber(subscriber) {
@@ -268,7 +267,7 @@ export class Homepage {
     }
 
     initShip() {
-        this.ship = new Ship(this, this.sprite, this.runner);
+        new Ship(this, this.sprite, this.runner);
     }
 
     shootProfile() {
@@ -283,5 +282,23 @@ export class Homepage {
             }
         }
         window.setTimeout(this.shootProfile.bind(this), 1000 + Math.random() * 2000);
+    }
+
+    initSpeaker() {
+        this.audio = document.getElementById('audio');
+        new Speaker(this, this.sprite);
+    }
+
+    initPages() {
+        this.pages = [];
+        this.pageScrollerSpeed = 1;
+        this.pageIndex = -1;
+        this.charSet = " ?!\"=/%-'(),.:;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        let index = 0;
+        document.querySelectorAll('article.page').forEach(article => {
+            this.pages.push(new Page(this, index++, article.firstChild.nodeValue, this.sprite));
+        });
+        this.pages[0].reset();
     }
 }
