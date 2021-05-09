@@ -1,4 +1,4 @@
-<?php define('BUILD', 56); ?><!DOCTYPE html>
+<?php const BUILD = 57; ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
