@@ -1,4 +1,4 @@
-<?php const BUILD = 58; ?><!DOCTYPE html>
+<?php const BUILD = 59; ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,8 +26,6 @@ Here you'll find some of my public projects and official social pages like Faceb
 <audio id="audio">
     <source src="/img/LifeIsJustAGame.mp3" type="audio/mp3">
 </audio>
-
-<a id="url" target="_blank"></a>
 
 <article id="text">Hello and welcome to my homepage. I am Markus Zeller who likes to code, make music, make some graphics stuff and bodybuilding.
 Here you'll find some of my public projects and official social pages like Facebook, Instagram or my Youtube channel. I am looking forward to see you there!
