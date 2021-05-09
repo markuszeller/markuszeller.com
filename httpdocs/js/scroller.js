@@ -509,18 +509,7 @@ window.addEventListener("load", function () {
         ox = mx;
         oy = my;
         stars.forEach(function (star) {
-            star.acc -= star.acc * .02;
-            if (dx > 0) {
-                star.acc += dx * star.velocity * 5;
-                star.tail += dx * star.velocity * 3;
-                if (star.tail > 80) star.tail = 80;
-            }
-            star.tail -= star.tail * .05;
-            if (star.tail < 0) star.tail = 0;
-            if (star.acc < star.initAcc) star.acc = star.initAcc;
-            star.x -= star.velocity + star.acc;
-            if (star.x < -star.size - star.tail) star.x = w + star.velocity + star.acc;
-            if (dy) star.y += dy * .1;
+            star.update();
         });
 
         sin += .002 * sinDir;
