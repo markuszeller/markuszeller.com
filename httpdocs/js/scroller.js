@@ -433,8 +433,7 @@ window.addEventListener("load", function () {
         }
     }
 
-    class Star
-    {
+    class Star {
         constructor(x, y, velocity, brightness, size, acc) {
             this.x = x;
             this.y = y;
@@ -468,24 +467,26 @@ window.addEventListener("load", function () {
         }
     }
 
-    function Speaker() {
-        this.isOn = false;
-        this.srcX = 1050;
-        this.srcY = 120;
-        this.size = 64;
-        this.hs = this.size / 2;
-        this.x = 0;
-        this.y = 0;
-        this.speed = 0;
-        this.acc = .5;
+    class Speaker {
+        constructor() {
+            this.isOn = false;
+            this.srcX = 1050;
+            this.srcY = 120;
+            this.size = 64;
+            this.hs = this.size / 2;
+            this.x = 0;
+            this.y = 0;
+            this.speed = 0;
+            this.acc = .5;
 
-        this.offY = this.hs;
-        this.onY = h - this.size - this.size;
+            this.offY = this.hs;
+            this.onY = h - this.size - this.size;
 
-        this.resize();
-        this.cy = this.hs;
+            this.resize();
+            this.cy = this.hs;
+        }
 
-        Speaker.prototype.update = function () {
+        update() {
             if (this.speed) {
                 this.speed += this.acc;
 
@@ -515,15 +516,15 @@ window.addEventListener("load", function () {
                     this.speed = this.acc;
                 }
             }
-        };
-    }
+        }
 
-    Speaker.prototype.draw = function () {
-        ctx1.drawImage(sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
-    };
+        draw() {
+            ctx1.drawImage(sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
+        }
 
-    Speaker.prototype.resize = function () {
-        this.cx = w - this.size - this.size;
+        resize() {
+            this.cx = w - this.size - this.size;
+        }
     }
 
     for (i = 0; i < starCount; i++) {
