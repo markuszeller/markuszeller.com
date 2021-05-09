@@ -323,38 +323,40 @@ window.addEventListener("load", function () {
         };
     }
 
-    function Page(text) {
-        this.text = text.toUpperCase();
-        this.pos = 0;
-        this.frame = 0;
-    }
-
-    Page.prototype.draw = function () {
-        let frame = Math.floor(this.frame / pageScrollerSpeed);
-        let x = -hfs - frame;
-        let y = hfs * Math.sin(frame * .01) + hfs + hfs;
-
-        for (let i = Math.floor(this.pos), l = this.text.length; i < l; i++) {
-            let c = this.text[i];
-            let fx = chars.indexOf(c);
-            if (fx === -1) fx = 0;
-            x += hfs;
-            if (x < -hfs) continue;
-            ctx1.drawImage(sprite, fx * hfs, 0, hfs, hfs, x, y, hfs, hfs);
+    class Page {
+        constructor(text) {
+            this.text = text.toUpperCase();
+            this.pos = 0;
+            this.frame = 0;
         }
-    };
 
-    Page.prototype.init = function () {
-        page++;
-        if (page >= pages.length) page = 0;
-        pages[page].pos = 0;
-        pages[page].frame = -w - hfs;
-    };
+        draw() {
+            let frame = Math.floor(this.frame / pageScrollerSpeed);
+            let x = -hfs - frame;
+            let y = hfs * Math.sin(frame * .01) + hfs + hfs;
 
-    Page.prototype.update = function () {
-        this.frame++;
-        if (this.frame > hfs * this.text.length) this.init();
-    };
+            for (let i = Math.floor(this.pos), l = this.text.length; i < l; i++) {
+                let c = this.text[i];
+                let fx = chars.indexOf(c);
+                if (fx === -1) fx = 0;
+                x += hfs;
+                if (x < -hfs) continue;
+                ctx1.drawImage(sprite, fx * hfs, 0, hfs, hfs, x, y, hfs, hfs);
+            }
+        }
+
+        reset() {
+            page++;
+            if (page >= pages.length) page = 0;
+            pages[page].pos = 0;
+            pages[page].frame = -w - hfs;
+        }
+
+        update() {
+            this.frame++;
+            if (this.frame > hfs * this.text.length) this.reset();
+        }
+    }
 
     function Bar() {
         this.h = 32;
@@ -527,7 +529,7 @@ window.addEventListener("load", function () {
     for (i = 0, l = p.length; i < l; i++) {
         pages.push(new Page(p[i].firstChild.nodeValue));
     }
-    pages[0].init();
+    pages[0].reset();
 
     p = document.querySelectorAll("a.profile");
     for (i = 0; i < p.length; i++) {
