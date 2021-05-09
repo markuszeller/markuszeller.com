@@ -1,6 +1,15 @@
 export class Speaker {
-    constructor(homepage) {
+    constructor(homepage, sprite) {
         this.homepage = homepage;
+        this.sprite = sprite;
+
+        this.init();
+        this.homepage.addUpdateSubscriber(this);
+        this.homepage.addDrawSubscriber(this);
+        this.homepage.addResizeSubscriber(this);
+    }
+
+    init() {
         this.isOn = false;
         this.srcX = 1050;
         this.srcY = 120;
@@ -57,7 +66,7 @@ export class Speaker {
     }
 
     draw() {
-        this.homepage.ctx.drawImage(this.homepage.sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
+        this.homepage.ctx.drawImage(this.sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
     }
 
     resize() {
