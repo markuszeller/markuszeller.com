@@ -78,11 +78,10 @@ window.addEventListener("load", function () {
         this.x = w / 2 - this.size - this.size / 2;
         this.y = -this.size;
         this.acc = h / this.size / 2;
-        this.vel = 16;
+        this.vel = this.size;
         this.frame = 0;
         this.visible = true;
         this.scene = 0;
-        this.step = 0;
         this.freeze = 0;
         this.yoffs = [120, 375, 247, 375, 120];
         this.forwards = true;
@@ -90,7 +89,7 @@ window.addEventListener("load", function () {
 
     Ship.prototype.update = function () {
         if (!this.visible) return;
-        let anim = 0 === frame % 4;
+        let anim = 0 === frame % 8;
         if (this.forwards && anim) {
             this.frame++;
             if (this.frame > 7) this.frame = 0;
@@ -107,7 +106,7 @@ window.addEventListener("load", function () {
                     this.acc -= .01;
                 } else if (this.frame === 0 && anim) this.scene++;
                 if (this.acc > 0) this.y += this.acc;
-                if (this.vel > 0) this.vel -= .1;
+                if (this.vel > 0) this.vel -= .6;
                 break;
 
             case 1:
@@ -169,7 +168,7 @@ window.addEventListener("load", function () {
                 break;
         }
 
-        this.x += Math.sin(frame / 8) * this.vel;
+        this.x = w * .5 - this.size * .5 + (Math.sin(frame / 16) * this.vel);
     };
 
     Ship.prototype.draw = function () {
@@ -253,7 +252,7 @@ window.addEventListener("load", function () {
         return false;
     }
 
-    Profile.prototype.isClicked = function() {
+    Profile.prototype.isClicked = function () {
         if (mx && my && mx > this.x && mx < this.x + fs && my > this.y && my < this.y + fs) {
             if (touched) {
                 touched = clicked = false;
