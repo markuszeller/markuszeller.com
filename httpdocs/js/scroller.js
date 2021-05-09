@@ -368,15 +368,14 @@ window.addEventListener("load", function () {
     }
 
     Bar.prototype.init = function () {
-        let v = 0;
-        let c, i;
         this.y = -Math.random() * y - this.h - this.h;
         this.off = 0;
 
+        let v = 0;
         while (!v) {
             this.col = [];
-            for (i = 0; i < 3; i++) {
-                c = Math.random() > .5;
+            for (let i = 0; i < 3; i++) {
+                let c = Math.random() > .5;
                 v += c;
                 this.col.push(c * 255);
             }
