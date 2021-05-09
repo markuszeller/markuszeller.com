@@ -103,7 +103,7 @@ PS: Don't ask for any other vowel! This is illegal in my country and will be pun
 <a class="profile" href="/podcast" target="_blank"></a>
 <a class="profile" href="https://www.vk.com/markuszeller" target="_blank"></a>
 
-<script src="/js/scroller.js" type="module"></script>
+<script src="/js/homepage.js" type="module"></script>
 
 </body>
 </html>
