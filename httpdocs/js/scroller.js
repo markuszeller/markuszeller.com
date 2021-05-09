@@ -270,56 +270,58 @@ window.addEventListener("load", function () {
         }
     }
 
-    function Runner() {
-        this.frames = 11;
-        this.dir = 1;
-        this.w = 44;
-        this.h = 37;
-        this.hh = 37 * .5;
-        this.x = w / 2 - 28;
-        this.visible = false;
-        this.run = false;
-        this.y = h;
-        this.beam = false;
-        this.speed = fps * 8;
-        this.jumpY = 0;
-    }
-
-    Runner.prototype.draw = function () {
-        if (!this.visible) return;
-        let frame = this.beam ? 0 : Math.floor(timeElapsed * (fps / this.frames) % this.frames);
-        ctx1.drawImage(sprite, this.dir > 0 ? frame * this.w : this.frames * this.w * 2 - (frame * this.w) - this.w, 82, this.w, this.h, this.x, this.y - this.jumpY, this.w, this.h);
-    };
-
-    Runner.prototype.update = function () {
-        if (!this.visible) return;
-        this.jumpY = this.hh * Math.abs(Math.sin(timeElapsed * 0.0025));
-
-        let footY = h - this.h;
-        if (this.beam) {
-            this.jumpY = 0;
-            this.y += .6;
-            if (this.y > footY) {
-                this.y = footY;
-            }
-            return;
-        }
-
-        this.x += this.speed * ((.5 * Math.cos(timeElapsed * 0.0025) + .5) * this.dir + this.dir);
-
-        if (this.x > w - this.w) {
-            this.x = w - this.w;
-            this.dir = -1;
-        }
-        if (this.x < 0) {
-            this.x = 0;
+    class Runner {
+        constructor() {
+            this.frames = 11;
             this.dir = 1;
+            this.w = 44;
+            this.h = 37;
+            this.hh = 37 * .5;
+            this.x = w / 2 - 28;
+            this.visible = false;
+            this.run = false;
+            this.y = h;
+            this.beam = false;
+            this.speed = fps * 8;
+            this.jumpY = 0;
         }
-    };
 
-    Runner.prototype.resize = function () {
-        this.y = h - this.h;
-    };
+        draw() {
+            if (!this.visible) return;
+            let frame = this.beam ? 0 : Math.floor(timeElapsed * (fps / this.frames) % this.frames);
+            ctx1.drawImage(sprite, this.dir > 0 ? frame * this.w : this.frames * this.w * 2 - (frame * this.w) - this.w, 82, this.w, this.h, this.x, this.y - this.jumpY, this.w, this.h);
+        }
+
+        update() {
+            if (!this.visible) return;
+            this.jumpY = this.hh * Math.abs(Math.sin(timeElapsed * 0.0025));
+
+            let footY = h - this.h;
+            if (this.beam) {
+                this.jumpY = 0;
+                this.y += .6;
+                if (this.y > footY) {
+                    this.y = footY;
+                }
+                return;
+            }
+
+            this.x += this.speed * ((.5 * Math.cos(timeElapsed * 0.0025) + .5) * this.dir + this.dir);
+
+            if (this.x > w - this.w) {
+                this.x = w - this.w;
+                this.dir = -1;
+            }
+            if (this.x < 0) {
+                this.x = 0;
+                this.dir = 1;
+            }
+        }
+
+        resize() {
+            this.y = h - this.h;
+        };
+    }
 
     function Page(text) {
         this.text = text.toUpperCase();
