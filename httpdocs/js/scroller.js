@@ -470,7 +470,7 @@ window.addEventListener("load", function () {
         this.offY = this.hs;
         this.onY = h - this.size - this.size;
 
-        this.cx = w - this.size - this.size;
+        this.resize();
         this.cy = this.hs;
 
         Speaker.prototype.update = function () {
@@ -504,11 +504,14 @@ window.addEventListener("load", function () {
                 }
             }
         };
+    }
 
-        Speaker.prototype.draw = function () {
-            ctx1.drawImage(sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
-        };
+    Speaker.prototype.draw = function () {
+        ctx1.drawImage(sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
+    };
 
+    Speaker.prototype.resize = function() {
+        this.cx = w - this.size - this.size;
     }
 
     for (i = 0; i < starCount; i++) {
@@ -633,6 +636,7 @@ window.addEventListener("load", function () {
             s.y *= sy;
         });
         runner.resize();
+        speaker.resize();
     });
 
     function shoot() {
