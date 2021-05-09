@@ -12,14 +12,14 @@ export class Page {
 
     init() {
         this.pos = 0;
-        this.frame = 0;
+        this.x = 0;
     }
 
     draw() {
         if(this.homepage.pageIndex !== this.index) return;
 
-        let x = -this.homepage.hfs - this.frame;
-        let y = this.homepage.hfs * Math.sin(this.frame * .01) + this.homepage.hfs + this.homepage.hfs;
+        let x = -this.homepage.hfs - this.x;
+        let y = this.homepage.hfs * Math.sin(this.x * .01) + this.homepage.hfs + this.homepage.hfs;
 
         for (let i = Math.floor(this.pos), l = this.text.length; i < l; i++) {
             let c = this.text[i];
@@ -36,13 +36,13 @@ export class Page {
         this.homepage.pageIndex++;
         if (this.homepage.pageIndex >= this.homepage.pages.length) this.homepage.pageIndex = 0;
         this.homepage.pages[this.homepage.pageIndex].pos = 0;
-        this.homepage.pages[this.homepage.pageIndex].frame = -this.homepage.w - this.homepage.hfs;
+        this.homepage.pages[this.homepage.pageIndex].x = -this.homepage.w - this.homepage.hfs;
     }
 
     update() {
         if(this.homepage.pageIndex !== this.index) return;
 
-        this.frame += this.homepage.pageScrollerSpeed;
-        if (this.frame > this.homepage.hfs * this.text.length) this.reset();
+        this.x += this.homepage.pageScrollerSpeed;
+        if (this.x > this.homepage.hfs * this.text.length) this.reset();
     }
 }

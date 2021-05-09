@@ -5,14 +5,13 @@ import {Star} from "/js/modules/star.js";
 import {Ship} from "/js/modules/ship.js";
 import {Bar} from "/js/modules/bar.js";
 import {Page} from "/js/modules/page.js";
+import {Scroller} from "/js/modules/scroller.js";
 
 export class Homepage {
     constructor(build) {
         this.build = build;
 
-        this.updateSubscribers = [];
-        this.drawSubscribers = [];
-        this.resizeSubscribers = [];
+        this.initSubscribers();
 
         this.initMouse();
         this.initScreen();
@@ -26,9 +25,11 @@ export class Homepage {
         this.initRunner();
         this.initProfiles();
         this.initShip();
-        this.initSpeaker();
 
         this.initPages();
+        this.initScroller();
+
+        this.initSpeaker();
     }
 
     addUpdateSubscriber(subscriber) {
@@ -131,56 +132,16 @@ export class Homepage {
 
     update() {
         this.updateMouse();
-
         this.updateSubscribers.forEach(subscriber => subscriber.update());
 
         if (this.barsEnabled && this.visibleBarsCount === 0) {
             this.enableBars();
         }
-
-
-        /*
-
-        sin += .002 * sinDir;
-        if (sin > 1 || sin < -1) sinDir *= -1;
-        /*
-
-
-         */
     }
 
     draw() {
-        this.ctx.fillStyle = "#000";
-        this.ctx.clearRect(0, 0, this.w, this.h);
-
+        this.clearScreen();
         this.drawSubscribers.forEach((subscriber) => subscriber.draw());
-
-        /*
-        let c, fx, i, x, xoffs, yoffs;
-
-
-        let bsFrame = frame * bigScrollerSpeed;
-        xoffs = w - bsFrame;
-        for (i = 0; i < text.length; i++) {
-            yoffs = y + Math.cos((frame / bigScrollerSpeed) * .04 + i * .1) * Math.sin(sin) * yh - hfs;
-            c = text[i];
-            fx = chars.indexOf(c);
-            if (fx === -1) fx = 0;
-            x = xoffs + i * fs;
-            if (x > -fs && x < w) {
-                this.ctx.drawImage(sprite, fx * fs, sFontY, fs, fs, x, yoffs, fs, fs);
-                if (c === ctrlEsc) frame = 0;
-            }
-        }
-
-        */
-
-        /*
-
-        pages[page].draw();
-
-
-         */
     }
 
     resize() {
@@ -300,5 +261,20 @@ export class Homepage {
             this.pages.push(new Page(this, index++, article.firstChild.nodeValue, this.sprite));
         });
         this.pages[0].reset();
+    }
+
+    initScroller() {
+        new Scroller(this, document.getElementById("text").firstChild.nodeValue, this.sprite);
+    }
+
+    initSubscribers() {
+        this.updateSubscribers = [];
+        this.drawSubscribers = [];
+        this.resizeSubscribers = [];
+    }
+
+    clearScreen() {
+        this.ctx.fillStyle = "#000";
+        this.ctx.clearRect(0, 0, this.w, this.h);
     }
 }
