@@ -2,11 +2,12 @@
 window.addEventListener("load", function () {
 
     let build = 56;
+
     let sprite = new Image();
     sprite.addEventListener('load', function () {
         window.requestAnimationFrame(animate);
     });
-    sprite.src = 'img/sprite.png?v=' + build;
+
     let starCount = 300;
     let starTail = 8;
     let barCount = 2;
@@ -666,6 +667,6 @@ window.addEventListener("load", function () {
         window.setTimeout(shoot, 1000 + Math.random() * 2000);
     }
 
+    sprite.src = 'img/sprite.png?v=' + build;
     window.setTimeout(shoot, 2000 + Math.random() * 2000);
-
 });
