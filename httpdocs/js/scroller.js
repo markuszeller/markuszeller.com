@@ -29,7 +29,6 @@ window.addEventListener("load", function () {
     let sFontY = 16;
     let touched = false;
     let clicked = false;
-    let frameRate = 1000 / 60;
     let fps = 60 / 1000;
     let timeElapsed = frameRate;
 
