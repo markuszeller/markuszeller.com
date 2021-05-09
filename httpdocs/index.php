@@ -1,4 +1,4 @@
-<?php const BUILD = 57; ?><!DOCTYPE html>
+<?php const BUILD = 58; ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,7 +103,7 @@ PS: Don't ask for any other vowel! This is illegal in my country and will be pun
 <a class="profile" href="/podcast" target="_blank"></a>
 <a class="profile" href="https://www.vk.com/markuszeller" target="_blank"></a>
 
-<script src="/js/scroller.js"></script>
+<script src="/js/homepage.js?v=<?= BUILD ?>" type="module"></script>
 
 </body>
 </html>
