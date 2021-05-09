@@ -73,8 +73,7 @@ window.addEventListener("load", function () {
 
     let ctx1 = canvas1.getContext("2d");
 
-    class Ship
-    {
+    class Ship {
         constructor() {
             this.size = 128;
             this.x = w / 2 - this.size - this.size / 2;
@@ -178,95 +177,97 @@ window.addEventListener("load", function () {
         }
     }
 
-    function Profile(el) {
-        this.el = el;
-        this.xoffs = profiles.length * 32;
-        this.y = h;
-        this.x = 0;
-        this.visible = false;
-        this.vel = 0;
-        this.step = 0;
-        this.coll = false;
-        this.die = false;
-        this.size = 0;
-        this.acc = 0;
-    }
-
-    Profile.prototype.init = function () {
-        this.y = h - fs;
-        this.visible = true;
-        this.vel = .5 + Math.random();
-        this.step = 0;
-        this.die = false;
-        this.size = 0;
-        this.coll = false;
-        this.acc = 1 + Math.random() * 2;
-    };
-
-    Profile.prototype.draw = function () {
-        if (!this.visible) return;
-
-        ctx1.drawImage(sprite, this.xoffs, 49, fs, fs, this.x, this.y, this.size, this.size);
-    };
-
-    Profile.prototype.update = function () {
-        if (!this.visible || this.isClicked()) return;
-
-        if (this.acc > 0) {
-            this.acc -= .01;
-            this.y -= this.acc;
-        }
-        this.vel -= .001;
-        if (this.vel < 0) this.vel -= .002;
-        this.y -= this.step > fs ? this.vel : .5;
-        if (this.y < -fs || this.y > h) this.die = true;
-
-        this.coll = this.detectCollision();
-
-        let cos = Math.cos(this.step * .02);
-        if (this.coll) {
-            if (this.step > fs * 2) this.die = true;
+    class Profile {
+        constructor(el) {
+            this.el = el;
+            this.xoffs = profiles.length * 32;
+            this.y = h;
+            this.x = 0;
+            this.visible = false;
+            this.vel = 0;
+            this.step = 0;
+            this.coll = false;
+            this.die = false;
+            this.size = 0;
+            this.acc = 0;
         }
 
-        if (this.step > fs) {
-            if (this.vel > 0) this.x += Math.abs(this.vel * fs) * cos / profiles.length;
-            else this.y += Math.abs(this.vel * this.vel);
-        } else this.x = runner.x + (runner.dir > 0 ? runner.w * runner.dir : 0);
-
-        this.step++;
-
-        if (this.step < fs) this.size++;
-        if (this.die) {
-            this.size--;
-            if (this.size === 0) this.visible = false;
+        reset() {
+            this.y = h - fs;
+            this.visible = true;
+            this.vel = .5 + Math.random();
+            this.step = 0;
+            this.die = false;
+            this.size = 0;
+            this.coll = false;
+            this.acc = 1 + Math.random() * 2;
         }
-    };
 
-    Profile.prototype.detectCollision = function () {
-        for (i = 0, l = profiles.length; i < l; i++) {
-            let fitX = profiles[i].x + fs >= this.x && profiles[i].x < this.x + fs;
-            let fitY = profiles[i].y + fs >= this.y && profiles[i].y <= this.y + fs;
-            if (profiles[i].visible && profiles[i].xoffs !== this.xoffs && fitX && fitY) {
-                this.coll = this.vel > 0 && Math.random() > .9;
+        draw() {
+            if (!this.visible) return;
+
+            ctx1.drawImage(sprite, this.xoffs, 49, fs, fs, this.x, this.y, this.size, this.size);
+        }
+
+        update() {
+            if (!this.visible || this.isClicked()) return;
+
+            if (this.acc > 0) {
+                this.acc -= .01;
+                this.y -= this.acc;
+            }
+            this.vel -= .001;
+            if (this.vel < 0) this.vel -= .002;
+            this.y -= this.step > fs ? this.vel : .5;
+            if (this.y < -fs || this.y > h) this.die = true;
+
+            this.coll = this.detectCollision();
+
+            let cos = Math.cos(this.step * .02);
+            if (this.coll) {
+                if (this.step > fs * 2) this.die = true;
+            }
+
+            if (this.step > fs) {
+                if (this.vel > 0) this.x += Math.abs(this.vel * fs) * cos / profiles.length;
+                else this.y += Math.abs(this.vel * this.vel);
+            } else this.x = runner.x + (runner.dir > 0 ? runner.w * runner.dir : 0);
+
+            this.step++;
+
+            if (this.step < fs) this.size++;
+            if (this.die) {
+                this.size--;
+                if (this.size === 0) this.visible = false;
+            }
+        }
+
+        detectCollision() {
+            for (i = 0, l = profiles.length; i < l; i++) {
+                let fitX = profiles[i].x + fs >= this.x && profiles[i].x < this.x + fs;
+                let fitY = profiles[i].y + fs >= this.y && profiles[i].y <= this.y + fs;
+                if (profiles[i].visible && profiles[i].xoffs !== this.xoffs && fitX && fitY) {
+                    this.coll = this.vel > 0 && Math.random() > .9;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        isClicked() {
+            if (mx && my && mx > this.x && mx < this.x + fs && my > this.y && my < this.y + fs) {
+                if (touched) {
+                    touched = clicked = false;
+                    document.location.href = this.el.href;
+                }
+                if (clicked) {
+                    this.el.click();
+                    touched = clicked = false;
+                }
                 return true;
             }
+            return false;
         }
-        return false;
-    }
-
-    Profile.prototype.isClicked = function () {
-        if (mx && my && mx > this.x && mx < this.x + fs && my > this.y && my < this.y + fs) {
-            if (touched) {
-                touched = clicked = false;
-                document.location.href = this.el.href;
-            }
-            if (clicked) {
-                this.el.click();
-                touched = clicked = false;
-            }
-            return true;
-        }
-        return false;
     }
 
     function Runner() {
@@ -512,7 +513,7 @@ window.addEventListener("load", function () {
         ctx1.drawImage(sprite, this.srcX + (this.isOn ? this.size : 0), this.srcY, this.size, this.size, this.x, this.y, this.size, this.size);
     };
 
-    Speaker.prototype.resize = function() {
+    Speaker.prototype.resize = function () {
         this.cx = w - this.size - this.size;
     }
 
@@ -648,7 +649,7 @@ window.addEventListener("load", function () {
                 if (shot > l) shot = 0;
                 if (profiles[i].visible) continue;
 
-                profiles[i].init();
+                profiles[i].reset();
                 break;
             }
         }
