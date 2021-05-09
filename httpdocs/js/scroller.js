@@ -209,19 +209,7 @@ window.addEventListener("load", function () {
     };
 
     Profile.prototype.update = function () {
-        if (!this.visible) return;
-
-        if (mx && my && mx > this.x && mx < this.x + fs && my > this.y && my < this.y + fs) {
-            if (touched) {
-                touched = clicked = false;
-                document.location.href = this.el.href;
-            }
-            if (clicked) {
-                this.el.click();
-                touched = clicked = false;
-            }
-            return;
-        }
+        if (!this.visible || this.isClicked()) return;
 
         if (this.acc > 0) {
             this.acc -= .01;
@@ -234,14 +222,14 @@ window.addEventListener("load", function () {
 
         this.coll = this.detectCollision();
 
-        let cos = Math.cos(this.step * .05);
+        let cos = Math.cos(this.step * .02);
         if (this.coll) {
             if (this.step > fs * 2) this.die = true;
         }
 
         if (this.step > fs) {
             if (this.vel > 0) this.x += Math.abs(this.vel * fs) * cos / profiles.length;
-            else this.y += Math.abs(this.vel * this.vel * this.vel);
+            else this.y += Math.abs(this.vel * this.vel);
         } else this.x = runner.x + (runner.dir > 0 ? runner.w * runner.dir : 0);
 
         this.step++;
@@ -261,6 +249,21 @@ window.addEventListener("load", function () {
                 this.coll = this.vel > 0 && Math.random() > .9;
                 return true;
             }
+        }
+        return false;
+    }
+
+    Profile.prototype.isClicked = function() {
+        if (mx && my && mx > this.x && mx < this.x + fs && my > this.y && my < this.y + fs) {
+            if (touched) {
+                touched = clicked = false;
+                document.location.href = this.el.href;
+            }
+            if (clicked) {
+                this.el.click();
+                touched = clicked = false;
+            }
+            return true;
         }
         return false;
     }
