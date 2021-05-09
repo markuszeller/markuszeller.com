@@ -592,10 +592,11 @@ window.addEventListener("load", function () {
     }
 
     function animate(t) {
-        if (t - timeElapsed >= frameRate) {
+        if (t - timeElapsed >= fps) {
             update();
             draw();
             timeElapsed = t;
+            frame++;
         }
         window.requestAnimationFrame(animate);
     }
