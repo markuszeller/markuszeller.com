@@ -30,7 +30,9 @@ window.addEventListener("load", function () {
     let touched = false;
     let clicked = false;
     let fps = 60 / 1000;
-    let timeElapsed = frameRate;
+    let timeElapsed = 0;
+    let bigScrollerSpeed = 2;
+    let pageScrollerSpeed = 1;
 
     let w = document.documentElement.clientWidth;
     let h = document.documentElement.clientHeight;
@@ -317,8 +319,9 @@ window.addEventListener("load", function () {
     }
 
     Page.prototype.draw = function () {
-        let x = -hfs - this.frame;
-        let y = hfs * Math.sin(this.frame * .01) + hfs + hfs;
+        let frame = Math.floor(this.frame / pageScrollerSpeed);
+        let x = -hfs - frame;
+        let y = hfs * Math.sin(frame * .01) + hfs + hfs;
 
         for (let i = Math.floor(this.pos), l = this.text.length; i < l; i++) {
             let c = this.text[i];
@@ -338,7 +341,7 @@ window.addEventListener("load", function () {
     };
 
     Page.prototype.update = function () {
-        this.frame += 3;
+        this.frame++;
         if (this.frame > hfs * this.text.length) this.init();
     };
 
