@@ -431,6 +431,27 @@ window.addEventListener("load", function () {
         this.tail = 0;
     }
 
+    Star.prototype.update = function () {
+        this.acc = Math.min(this.acc * .994, starTail);
+        if (dx > 0) {
+            this.acc += dx * this.velocity * 5;
+            this.tail += dx * this.velocity * 3;
+            this.tail = Math.min(this.tail, starTail);
+        }
+        this.tail -= this.tail * .05;
+        this.tail = Math.max(0, this.tail);
+        this.acc = this.acc > 0 ? this.acc : this.initAcc;
+        this.x -= this.velocity + this.acc;
+        if (this.x < -this.size - this.tail) this.x = w + this.velocity + this.acc;
+        if (dy) this.y += dy * .1;
+    }
+
+    Star.prototype.draw = function () {
+        if (this.x > w || this.x < 0 || this.y < 0 || this.y > h) return;
+        ctx1.fillStyle = "rgba(255, 255, 255, " + this.brightness + ")";
+        ctx1.fillRect(this.x, this.y, this.size + this.tail, this.size);
+    }
+
     function Speaker() {
         this.isOn = false;
         this.srcX = 1050;
@@ -488,7 +509,7 @@ window.addEventListener("load", function () {
     }
 
     for (i = 0; i < starCount; i++) {
-        stars.push(new Star(Math.random() * w, Math.random() * h, Math.random() * .01, Math.random(), Math.random() * 4, Math.random() * 2));
+        stars.push(new Star(Math.random() * w, Math.random() * h, Math.random() * .5, Math.random(), Math.random() * 4, Math.random()));
     }
 
     let p = document.querySelectorAll('article.page');
@@ -541,10 +562,7 @@ window.addEventListener("load", function () {
         let c, fx, i, x, xoffs, yoffs;
 
         stars.forEach(function (star) {
-            if (star.x < w && star.y > 0 && star.y < h) {
-                ctx1.fillStyle = "rgba(255, 255, 255, " + star.brightness + ")";
-                ctx1.fillRect(star.x, star.y, star.size + star.tail, star.size);
-            }
+            star.draw();
         });
 
         bars.forEach(function (b) {
