@@ -470,7 +470,6 @@ window.addEventListener("load", function () {
         this.cy = this.hs;
 
         Speaker.prototype.update = function () {
-
             if (this.speed) {
                 this.speed += this.acc;
 
