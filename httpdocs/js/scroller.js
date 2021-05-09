@@ -209,7 +209,6 @@ window.addEventListener("load", function () {
     };
 
     Profile.prototype.update = function () {
-        let i, l, fitX, fitY, cos;
         if (!this.visible) return;
 
         if (mx && my && mx > this.x && mx < this.x + fs && my > this.y && my < this.y + fs) {
@@ -235,7 +234,7 @@ window.addEventListener("load", function () {
 
         this.coll = this.detectCollision();
 
-        cos = Math.cos(this.step * .05);
+        let cos = Math.cos(this.step * .05);
         if (this.coll) {
             if (this.step > fs * 2) this.die = true;
         }
