@@ -433,36 +433,39 @@ window.addEventListener("load", function () {
         }
     }
 
-    function Star(x, y, velocity, brightness, size, acc) {
-        this.x = x;
-        this.y = y;
-        this.velocity = velocity;
-        this.brightness = brightness;
-        this.size = size;
-        this.acc = acc;
-        this.initAcc = this.acc;
-        this.tail = 0;
-    }
-
-    Star.prototype.update = function () {
-        this.acc = Math.min(this.acc * .994, starTail);
-        if (dx > 0) {
-            this.acc += dx * this.velocity * 5;
-            this.tail += dx * this.velocity * 3;
-            this.tail = Math.min(this.tail, starTail);
+    class Star
+    {
+        constructor(x, y, velocity, brightness, size, acc) {
+            this.x = x;
+            this.y = y;
+            this.velocity = velocity;
+            this.brightness = brightness;
+            this.size = size;
+            this.acc = acc;
+            this.initAcc = this.acc;
+            this.tail = 0;
         }
-        this.tail -= this.tail * .05;
-        this.tail = Math.max(0, this.tail);
-        this.acc = this.acc > 0 ? this.acc : this.initAcc;
-        this.x -= this.velocity + this.acc;
-        if (this.x < -this.size - this.tail) this.x = w + this.velocity + this.acc;
-        if (dy) this.y += dy * .1;
-    }
 
-    Star.prototype.draw = function () {
-        if (this.x > w || this.x < 0 || this.y < 0 || this.y > h) return;
-        ctx1.fillStyle = "rgba(255, 255, 255, " + this.brightness + ")";
-        ctx1.fillRect(this.x, this.y, this.size + this.tail, this.size);
+        update() {
+            this.acc = Math.min(this.acc * .994, starTail);
+            if (dx > 0) {
+                this.acc += dx * this.velocity * 5;
+                this.tail += dx * this.velocity * 3;
+                this.tail = Math.min(this.tail, starTail);
+            }
+            this.tail -= this.tail * .05;
+            this.tail = Math.max(0, this.tail);
+            this.acc = this.acc > 0 ? this.acc : this.initAcc;
+            this.x -= this.velocity + this.acc;
+            if (this.x < -this.size - this.tail) this.x = w + this.velocity + this.acc;
+            if (dy) this.y += dy * .1;
+        }
+
+        draw() {
+            if (this.x > w || this.x < 0 || this.y < 0 || this.y > h) return;
+            ctx1.fillStyle = "rgba(255, 255, 255, " + this.brightness + ")";
+            ctx1.fillRect(this.x, this.y, this.size + this.tail, this.size);
+        }
     }
 
     function Speaker() {
