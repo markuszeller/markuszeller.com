@@ -25,7 +25,7 @@ export class Scroller {
     draw() {
         let bsFrame = this.homepage.frame * this.speed;
         let xoffs = this.homepage.w - bsFrame;
-        for (let i = 0; i < this.text.length; i++) {
+        for (let i = 0; i < this.text.length; ++i) {
             const yoffs = this.homepage.y + Math.cos((this.homepage.frame / this.speed) * .04 + i * .1) * Math.sin(this.sin) * this.homepage.yh - this.homepage.hfs;
             const c = this.text[i];
             let fx = this.homepage.charSet.indexOf(c);
@@ -41,7 +41,7 @@ export class Scroller {
     addPrefixSpaces() {
         let spaces = "";
         this.ctrlEsc = String.fromCharCode(27)
-        for (let i = 0, l = this.homepage.w / this.homepage.fs + 1; i < l; i++) spaces += " ";
+        for (let i = 0, l = this.homepage.w / this.homepage.fs + 1; i < l; ++i) spaces += " ";
         const text = spaces + this.text + spaces + this.ctrlEsc;
         this.text = text.toUpperCase();
     }

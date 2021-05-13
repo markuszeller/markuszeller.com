@@ -27,12 +27,10 @@ export class Ship {
         if (!this.visible) return;
         let anim = 0 === this.homepage.frame % 8;
         if (this.forwards && anim) {
-            this.frame++;
-            if (this.frame > 7) this.frame = 0;
+            if (++this.frame > 7) this.frame = 0;
         }
         if (!this.forwards && anim) {
-            this.frame--;
-            if (this.frame < 0) this.frame = 7;
+            if (--this.frame < 0) this.frame = 7;
         }
 
         switch (this.scene) {
@@ -40,16 +38,16 @@ export class Ship {
                 if (this.y < this.homepage.h - this.size) {
                     this.y += 1;
                     this.acc -= .01;
-                } else if (this.frame === 0 && anim) this.scene++;
+                } else if (this.frame === 0 && anim) ++this.scene;
                 if (this.acc > 0) this.y += this.acc;
                 if (this.vel > 0) this.vel -= .6;
                 break;
 
             case 1:
                 if (anim) {
-                    if (this.freeze++ >= 7) {
+                    if (++this.freeze >= 7) {
                         this.freeze = 0;
-                        this.scene++;
+                        ++this.scene;
                         this.runner.y = this.y;
                     }
                 }
@@ -57,24 +55,24 @@ export class Ship {
 
             case 2:
                 if (anim) {
-                    if (this.freeze++ > 40 && this.frame === 0) {
+                    if (++this.freeze > 40 && this.frame === 0) {
                         this.runner.visible = true;
                         this.runner.beam = true;
                     }
-                    if (this.freeze++ > 120 && this.frame === 0) {
+                    if (++this.freeze > 120 && this.frame === 0) {
                         this.forwards = false;
                         this.freeze = 0;
                         this.runner.beam = false;
                         this.runner.run = true;
-                        this.scene++;
+                        ++this.scene;
                     }
                 }
                 break;
 
             case 3:
                 if (anim) {
-                    if (this.freeze++ >= 7) {
-                        this.scene++;
+                    if (++this.freeze >= 7) {
+                        ++this.scene;
                         this.acc = 0;
                         this.vel = 0;
                         this.runner.run = true;

@@ -117,7 +117,7 @@ export class Homepage {
             this.update();
             this.draw();
             this.timeElapsed = t;
-            this.frame++;
+            ++this.frame;
         }
 
         requestAnimationFrame(this.animate.bind(this));
@@ -173,7 +173,7 @@ export class Homepage {
         this.shot = 0;
 
         const p = document.querySelectorAll("a.profile");
-        for (let i = 0; i < p.length; i++) {
+        for (let i = 0; i < p.length; ++i) {
             this.profiles.push(new Profile(this, p[i], this.runner));
         }
 
@@ -205,7 +205,7 @@ export class Homepage {
         this.starCount = 300;
         this.starTail = 8;
 
-        for (let i = 0; i < this.starCount; i++) {
+        for (let i = 0; i < this.starCount; ++i) {
             this.stars.push(new Star(this, Math.random() * this.w, Math.random() * this.h, Math.random() * .5, Math.random(), Math.random() * 4, Math.random()));
         }
     }
@@ -216,7 +216,7 @@ export class Homepage {
         this.visibleBarsCount = 0;
         this.barsEnabled = false;
 
-        for (let i = 0; i < this.barCount; i++) {
+        for (let i = 0; i < this.barCount; ++i) {
             this.bars.push(new Bar(this));
         }
     }
@@ -233,9 +233,8 @@ export class Homepage {
 
     shootProfile() {
         if (this.runner.run) {
-            for (let i = 0, l = this.profiles.length; i < l; i++) {
-                this.shot++;
-                if (this.shot > l) this.shot = 0;
+            for (let i = 0, l = this.profiles.length; i < l; ++i) {
+                if (++this.shot > l) this.shot = 0;
                 if (this.profiles[i].visible) continue;
 
                 this.profiles[i].reset();

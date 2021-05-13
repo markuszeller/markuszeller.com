@@ -63,17 +63,14 @@ export class Profile {
             else this.y += Math.abs(this.vel * this.vel);
         } else this.x = this.runner.x + (this.runner.dir > 0 ? this.runner.w * this.runner.dir : 0);
 
-        this.step++;
-
-        if (this.step < this.homepage.fs) this.size++;
+        if (++this.step < this.homepage.fs) ++this.size;
         if (this.die) {
-            this.size--;
-            if (this.size === 0) this.visible = false;
+            if (--this.size === 0) this.visible = false;
         }
     }
 
     detectCollision() {
-        for (let i = 0, l = this.homepage.profiles.length; i < l; i++) {
+        for (let i = 0, l = this.homepage.profiles.length; i < l; ++i) {
             let fitX = this.homepage.profiles[i].x + this.homepage.fs >= this.x && this.homepage.profiles[i].x < this.x + this.homepage.fs;
             let fitY = this.homepage.profiles[i].y + this.homepage.fs >= this.y && this.homepage.profiles[i].y <= this.y + this.homepage.fs;
             if (this.homepage.profiles[i].visible && this.homepage.profiles[i].xoffs !== this.xoffs && fitX && fitY) {

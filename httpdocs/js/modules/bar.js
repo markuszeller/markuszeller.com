@@ -28,7 +28,7 @@ export class Bar {
         this.off = 0;
 
         this.col = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; ++i) {
             this.col.push(Math.floor(Math.random() * 128 + 128));
         }
         this.vel = 0;
@@ -46,7 +46,7 @@ export class Bar {
             this.vel *= .7 + Math.random() * .2;
             this.velDir *= -1;
             this.y = this.homepage.h + this.h;
-            if (this.off++ > this.h) {
+            if (++this.off > this.h) {
                 this.reset();
             }
         } else this.off = 0;
@@ -56,11 +56,10 @@ export class Bar {
         if (!this.visible || !this.homepage.barsEnabled) return;
 
         this.ys = 0;
-        let i = 0;
+        let i = -1;
 
-        while (i < this.res) {
+        while (++i < this.res) {
             this.paint(i);
-            i++;
         }
         while (i--) {
             this.paint(i);
