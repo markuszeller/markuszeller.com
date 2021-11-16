@@ -1,6 +1,7 @@
 <?php const BUILD = 60; ?><!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preconnect" href="https://www.markuszeller.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Markus Zeller Homepage">
     <meta property="og:title" content="Markus Zeller">
