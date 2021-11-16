@@ -87,19 +87,19 @@ May the secret be with you --- and me!
 PS: Don't ask for any other vowel! This is illegal in my country and will be punished by Heiko the Zensurminister.
 </article>
 
-<a class="profile" href="https://www.instagram.com/markuszeller" target="_blank"></a>
-<a class="profile" href="https://www.twitter.com/n4cer" target="_blank"></a>
-<a class="profile" href="https://www.facebook.com/markus.zeller.private" target="_blank"></a>
-<a class="profile" href="skype:markuszeller.com?call" target="_blank"></a>
-<a class="profile" href="https://www.youtube.com/c/MarkusZeller" target="_blank"></a>
-<a class="profile" href="https://www.snapchat.com/add/markuszeller" target="_blank"></a>
-<a class="profile" href="https://paypal.me/markuszeller" target="_blank"></a>
-<a class="profile" href="https://stackoverflow.com/users/2645713/markus-zeller" target="_blank"></a>
-<a class="profile" href="https://soundcloud.com/dj-n-4cer" target="_blank"></a>
-<a class="profile" href="https://addons.mozilla.org/en-US/firefox/user/markuszeller_/" target="_blank"></a>
-<a class="profile" href="/fibo" target="_blank"></a>
-<a class="profile" href="/podcast" target="_blank"></a>
-<a class="profile" href="https://www.vk.com/markuszeller" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://www.instagram.com/markuszeller" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://www.twitter.com/n4cer" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://www.facebook.com/markus.zeller.private" target="_blank"></a>
+<a class="profile" rel="noopener" href="skype:markuszeller.com?call" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://www.youtube.com/c/MarkusZeller" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://www.snapchat.com/add/markuszeller" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://paypal.me/markuszeller" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://stackoverflow.com/users/2645713/markus-zeller" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://soundcloud.com/dj-n-4cer" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://addons.mozilla.org/en-US/firefox/user/markuszeller_/" target="_blank"></a>
+<a class="profile" rel="noopener" href="/fibo" target="_blank"></a>
+<a class="profile" rel="noopener" href="/podcast" target="_blank"></a>
+<a class="profile" rel="noopener" href="https://www.vk.com/markuszeller" target="_blank"></a>
 
 <script src="/js/homepage.js?v=<?= BUILD ?>" type="module"></script>
 
