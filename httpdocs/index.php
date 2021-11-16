@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Markus Zeller Homepage">
     <meta property="og:title" content="Markus Zeller">
     <meta property="og:url" content="https://www.markuszeller.com">
     <meta property="og:type" content="website">
