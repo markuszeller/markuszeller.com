@@ -38,11 +38,12 @@ Thank you and have a nice trip in my space! Did you already try to move your mou
 written and produced by Markus Zeller, Forced Grooves Records. Because some people asked: Yes, it is my own voice. This song is also available in the podcast.
 </article>
 
-<article class="page">New song ::: Maskentanz ::: A synth pop song powered by 303 bass. Sounds like 80s, but is new.
+<article class="page">After a whole year I finally managed to find some time to make music, again. So there is my first 2022 song called - VIPER -.
+Just go to my podcast page (https://markuszeller.com/podcast), Youtube, Soundcloud, and all the music stores. Viper is taking back the street!!!
 </article>
 
 <article class="page">DJ N-4ceR and all you can (b)eat :::
-Latest released song is "I'm Hungry" :::
+Latest released song is Viper :::
 Get my music on all the popular stores and streaming services like
 Apple Music, Spotify, Deezer, Beatport, Amazon Music, Google Play, Heartbeat and lots more.
 Most of my tracks are also available for free download in hiqh quality on my podcast.
