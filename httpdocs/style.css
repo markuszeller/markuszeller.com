@@ -1,0 +1,91 @@
+:root {
+    --button-color: #af3533;
+    --text-color: #51e3f0;
+    --button-up: 4px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background: #111;
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+main {
+    width: 512px;
+}
+
+canvas {
+    width: 512px;
+    height: 624px;
+}
+
+section {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 512px;
+}
+
+section a {
+    background: url("/sprite.png") no-repeat;
+    display: inline-block;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    transition: all 0.2s ease-in-out;
+}
+
+section a:hover {
+    transform: translateY(calc(var(--button-up) * -1));
+    filter: brightness(3);
+}
+
+#spotify {
+    background-position: 0 0;
+}
+
+#podcast {
+    background-position: -41px 0;
+}
+
+#soundcloud {
+    background-position: -81px 0;
+}
+
+#youtube {
+    background-position: -121px 0;
+}
+
+#tiktok {
+    background-position: -161px 0;
+}
+
+#itunes {
+    background-position: -201px 0;
+}
+
+#deezer {
+    background-position: -241px 0;
+}
+
+#tidal {
+    background-position: -281px 0;
+}
+
+#amazon {
+    background-position: -321px 0;
+}
