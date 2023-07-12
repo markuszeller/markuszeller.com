@@ -38,6 +38,14 @@ Here you'll find some of my public projects and official social pages like Faceb
         <a target="_blank" id="tidal" title="Tidal" href="https://tidal.com/browse/artist/9176316"></a>
         <a target="_blank" id="amazon" title="Amazon Music" href="https://music.amazon.com/artists/B0797F355G/markus-zeller"></a>
     </section>
+    <section>
+        <a target="_blank" id="github" title="Github" href="https://github.com/markuszeller/"></a>
+        <a target="_blank" id="instagram" title="Instagram" href="https://www.instagram.com/markuszeller/"></a>
+        <a target="_blank" id="twitter" title="Twitter" href="https://twitter.com/MarkusZeller"></a>
+        <a target="_blank" id="stackoverflow" title="Stack Overflow" href="https://stackoverflow.com/users/2645713/markus-zeller"></a>
+        <a target="_blank" id="facebook" title="Facebook" href="https://www.facebook.com/markus.zeller.private/"></a>
+        <a target="_blank" id="discord" title="Discord" href="https://discord.gg/qnYxa6q"></a>
+    </section>
 </main>
 
 <footer style="display: none">
@@ -55,8 +63,9 @@ Here you'll find some of my public projects and official social pages like Faceb
     </dl>
     <dl>
         <dd>Here comes a tracklist of my releases</dd>
-        <dd>ordered by release date.</dd>
+        <dd>ordered by release date, latest first.</dd>
     </dl>
+    <dl><dd>Snap</dd></dl>
     <dl><dd>Objektschmiede</dd></dl>
     <dl><dd>Gurkensalat</dd></dl>
     <dl><dd>Dreamlusion</dd></dl>

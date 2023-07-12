@@ -89,3 +89,27 @@ section a:hover {
 #amazon {
     background-position: -321px 0;
 }
+
+#github {
+    background-position: -361px 0;
+}
+
+#instagram {
+    background-position: -401px 0;
+}
+
+#twitter {
+    background-position: -441px 0;
+}
+
+#stackoverflow {
+    background-position: -481px 0;
+}
+
+#facebook {
+    background-position: -521px 0;
+}
+
+#discord {
+    background-position: -561px 0;
+}
