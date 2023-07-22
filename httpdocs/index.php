@@ -20,7 +20,7 @@ Here you'll find some of my public projects and official social pages like Faceb
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="600">
-    <meta property="og:image:alt" content="A photo from Markus Zeller taken in 2019.">
+    <meta property="og:image:alt" content="A photo from Markus Zeller in a pixeled Southpark character style.">
     <script src="/main.js" defer type="module"></script>
 </head>
 <body>
@@ -45,6 +45,7 @@ Here you'll find some of my public projects and official social pages like Faceb
         <a target="_blank" id="stackoverflow" title="Stack Overflow" href="https://stackoverflow.com/users/2645713/markus-zeller"></a>
         <a target="_blank" id="facebook" title="Facebook" href="https://www.facebook.com/markus.zeller.private/"></a>
         <a target="_blank" id="discord" title="Discord" href="https://discord.gg/qnYxa6q"></a>
+        <a target="_blank" id="pgp" title="Download PGP public key" href="/pgp-public.asc" rel="nofollow"></a>
     </section>
 </main>
 
