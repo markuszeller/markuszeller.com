@@ -64,6 +64,9 @@ export class Font {
         this.#containerLetters.length = 0;
         let row= 0;
         textArray.forEach((text) => {
+            if (text.length > this.#maxChars) {
+                text = text.substring(0, this.#maxChars - 3) + "...";
+            }
             const y      = row * this.#height + this.#spacing;
             let chars    = text.toLowerCase().split("");
             let x        = this.#scene.canvas.width / 2 - (chars.length * this.#width + chars.length * this.#spacing) / 2;
