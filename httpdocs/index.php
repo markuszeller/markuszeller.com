@@ -66,65 +66,9 @@ Here you'll find some of my public projects and official social pages like Faceb
         <dd>Here comes a tracklist of my releases</dd>
         <dd>ordered by release date, latest first.</dd>
     </dl>
-    <dl><dd>Snap</dd></dl>
-    <dl><dd>Objektschmiede</dd></dl>
-    <dl><dd>Gurkensalat</dd></dl>
-    <dl><dd>Dreamlusion</dd></dl>
-    <dl><dd>Soulmates</dd></dl>
-    <dl><dd>Viper</dd></dl>
-    <dl><dd>Memories</dd></dl>
-    <dl><dd>Hard Rock City</dd></dl>
-    <dl><dd>Stardust</dd></dl>
-    <dl><dd>TenSIDe</dd></dl>
-    <dl><dd>Maskentanz</dd></dl>
-    <dl><dd>I'm Hungry</dd></dl>
-    <dl><dd>Deprihession</dd></dl>
-    <dl><dd>Parlez Vous Francais</dd></dl>
-    <dl><dd>Schubkraft</dd></dl>
-    <dl><dd>Graveyard</dd></dl>
-    <dl><dd>Acid Hazard</dd></dl>
-    <dl><dd>Tiefschlaf</dd></dl>
-    <dl><dd>Paratron</dd></dl>
-    <dl><dd>Der Fluch - feat. Kopfnuss Kalli</dd></dl>
-    <dl><dd>Another World</dd></dl>
-    <dl><dd>Rabbit</dd></dl>
-    <dl><dd>Morgentau</dd></dl>
-    <dl><dd>Lost Spirit</dd></dl>
-    <dl><dd>Extrapolar</dd></dl>
-    <dl><dd>Back</dd></dl>
-    <dl><dd>July Rain</dd></dl>
-    <dl><dd>Prince of Persia</dd></dl>
-    <dl><dd>Potluck Dinner</dd></dl>
-    <dl><dd>Acid Beam</dd></dl>
-    <dl><dd>Better Love</dd></dl>
-    <dl><dd>Heimweh</dd></dl>
-    <dl><dd>Sickness</dd></dl>
-    <dl><dd>Say - remixed by DJ N-4ceR</dd></dl>
-    <dl><dd>Full House</dd></dl>
-    <dl><dd>Underpressure</dd></dl>
-    <dl><dd>Kaleidoskop</dd></dl>
-    <dl><dd>Sehnsucht</dd></dl>
-    <dl><dd>Moon Glow</dd></dl>
-    <dl><dd>Unity</dd></dl>
-    <dl><dd>Life is just a game</dd></dl>
-    <dl><dd>Sichtkontakt</dd></dl>
-    <dl><dd>Tagtraum</dd></dl>
-    <dl><dd>Bioelectic</dd></dl>
-    <dl><dd>Robot Meltdown</dd></dl>
-    <dl><dd>Red Zombie</dd></dl>
-    <dl><dd>Traumphase</dd></dl>
-    <dl><dd>Banana</dd></dl>
-    <dl><dd>Affentanz</dd></dl>
-    <dl><dd>Simplex</dd></dl>
-    <dl><dd>Schattenseite</dd></dl>
-    <dl><dd>Ich Flipp Aus</dd></dl>
-    <dl><dd>Look at this junkee</dd></dl>
-    <dl><dd>Zauberwald</dd></dl>
-    <dl><dd>I want to forget you</dd></dl>
-    <dl><dd>One More Year</dd></dl>
-    <dl><dd>Zeitfalle</dd></dl>
-    <dl><dd>Procession</dd></dl>
-    <dl><dd>Transition</dd></dl>
+    <section id="tracklist">
+        <?php readfile(__DIR__ . '/tracklist.html'); ?>
+    </section>
 </footer>
 </body>
 </html>
