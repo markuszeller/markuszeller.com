@@ -31,7 +31,7 @@ Here you'll find some of my public projects and official social pages like Faceb
         <a target="_blank" id="spotify" title="Spotify" href="https://open.spotify.com/artist/2Tzmp2LceoFOr9n2hZ7C2L"></a>
         <a target="_blank" id="podcast" title="Podcast" href="https://markuszeller.com/podcast"></a>
         <a target="_blank" id="soundcloud" title="Soundcloud" href="https://soundcloud.com/dj-n-4cer"></a>
-        <a target="_blank" id="youtube" title="Youtube" href="https://www.youtube.com/playlist?list=PL9B5E1B5F9712127A"></a>
+        <a target="_blank" id="youtube" title="Youtube" href="https://www.youtube.com/channel/UCPHO1UnGo21SSTFm00a5d-A"></a>
         <a target="_blank" id="tiktok" title="TikTok" href="https://www.tiktok.com/@markuszeller.com"></a>
         <a target="_blank" id="itunes" title="iTunes - Apple Music" href="https://music.apple.com/de/artist/markus-zeller/1384221074"></a>
         <a target="_blank" id="deezer" title="Deezer" href="https://www.deezer.com/de/artist/13317899"></a>
