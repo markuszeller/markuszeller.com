@@ -44,7 +44,7 @@ Here you'll find some of my public projects and official social pages like Faceb
         <a target="_blank" id="telegram" title="Telegram" href="https://telegram.me/markuszeller"></a>
         <a target="_blank" id="stackoverflow" title="Stack Overflow" href="https://stackoverflow.com/users/2645713/markus-zeller"></a>
         <a target="_blank" id="facebook" title="Facebook" href="https://www.facebook.com/markus.zeller.private/"></a>
-        <a target="_blank" id="discord" title="Discord" href="https://discord.gg/qnYxa6q"></a>
+        <a target="_blank" id="discord" title="Discord" href="https://discord.gg/mRcHXYfEWn"></a>
         <a target="_blank" id="pgp" title="Download PGP public key" href="/pgp-public.asc" rel="nofollow"></a>
     </section>
 </main>
