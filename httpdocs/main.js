@@ -12,7 +12,7 @@ const scene = {
     fps      : 60,
     frameRate: 1000 / 60,
     state    : new StateMachine(),
-    sprite   : sprite,
+    sprite   : sprite
 };
 
 sprite.addEventListener("load", () => scene.state.setAvatarIn());
