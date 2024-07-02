@@ -20,8 +20,8 @@ sprite.addEventListener("load", () => scene.state.setAvatarIn());
 sprite.src = "/sprite.png";
 
 const starfield = new Starfield(scene);
-const font = new Font(scene);
-const avatar = new Avatar(scene);
+const font      = new Font(scene, document.getElementById('scrolltext').innerText);
+const avatar    = new Avatar(scene);
 
 document.querySelectorAll('footer dl').forEach(dl => {
     font.addContainer([...dl.querySelectorAll('dd')].map(dd => dd.innerText));
@@ -35,14 +35,15 @@ const update = () => {
         font.nextContainer();
     }
 
-    font.update();
+    if (avatar.isComplete()) {
+        font.update();
+    }
 }
 const draw   = () => {
     scene.ctx.clearRect(0, 0, canvas.width, canvas.height);
     starfield.draw();
     avatar.draw();
-    font.drawContainer();
-    font.drawPortal();
+    font.draw();
 }
 
 let lastTime = 0;

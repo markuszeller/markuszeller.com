@@ -5,17 +5,18 @@ export class Font {
     #width            = 10;
     #spacing          = 2;
     #height           = 34;
+    #qHeight          = this.#height * .25;
     #charsPerRow      = 8;
     #maxChars         = 41;
     #yOffset          = 41;
-    #spawn= {x: 256, y: -this.#height};
+    #spawn            = {x: 256, y: -this.#height};
     #portalY          = 555;
     #portalAlpha      = 0;
     #isPortalIn       = false;
     #isPortalOut      = false;
     #containers       = [];
     #containerLetters = [];
-    #containerIndex = -1;
+    #containerIndex   = -1;
     #portalLetters    = [];
     #portalVelocity   = 0;
     #portalSpeed      = 2;
@@ -25,16 +26,23 @@ export class Font {
     #xBound;
     #containerHeight;
     #remainingWaitTime;
+    #scrollMaxLetters;
+    #scrollEnd;
+    #scrollText       = '';
+    #scrollPos        = 0;
+    #scrollSpeed      = 2;
+    #scrollOffset     = 0;
+    #scrollFrame      = 0;
 
-    constructor(scene) {
+    constructor(scene, scrolltext) {
         this.#scene           = scene;
         this.#xBound          = this.#scene.canvas.width - this.#width;
         this.#containerHeight = this.#height * 4 + 4;
-        this.#generateMap();
+        this.#generateMap(scrolltext);
         this.#addHandlers();
     }
 
-    #generateMap() {
+    #generateMap(scrolltext) {
         "abcdefghijklmnopqrstuvwxyz!'()-.?:0123456789,".split("")
             .forEach((char, i) => {
                 this.#map[char] = {
@@ -42,41 +50,45 @@ export class Font {
                     y: (i / this.#charsPerRow | 0) * this.#height + this.#yOffset
                 };
             });
+
+        this.#scrollMaxLetters = Math.ceil(this.#scene.canvas.width / this.#width) + 1;
+        this.#scrollText       = ' '.repeat(this.#scrollMaxLetters * 2) + scrolltext.trim().replace(/\s+/g, ' ').toLowerCase();
+        this.#scrollEnd        = this.#scrollText.length;
     }
 
     #addHandlers() {
         [...document.querySelectorAll('section a')].map(portal => {
             portal.addEventListener('mouseover', (e) => this.setPortalText(e.target.title));
-            portal.addEventListener('mouseout', (e) => this.clearPortalText());
+            portal.addEventListener('mouseout', (e) => this.#clearPortalText());
         });
     }
 
-    drawChar(char, x, y) {
-        if (char === " " || x > this.#xBound || x < -this.#width || y < -this.#height) {
+    #drawChar(char, x, y, size) {
+        if (char === " " || x > this.#xBound + this.#width || x < -this.#width || y < -this.#height) {
             return;
         }
         const charData = this.#map[char];
         if (!charData) return;
-        this.#scene.ctx.drawImage(this.#scene.sprite, charData.x, charData.y, this.#width, this.#height - 2, x, y, this.#width, this.#height);
+        this.#scene.ctx.drawImage(this.#scene.sprite, charData.x, charData.y, this.#width, this.#height - 2, x, y, this.#width, this.#height * size);
     }
 
     #setContainerText(textArray) {
         this.#containerLetters.length = 0;
-        let row= 0;
+        let row                       = 0;
         textArray.forEach((text) => {
             if (text.length > this.#maxChars) {
                 text = text.substring(0, this.#maxChars - 3) + "...";
             }
-            const y      = row * this.#height + this.#spacing;
-            let chars    = text.toLowerCase().split("");
-            let x        = this.#scene.canvas.width / 2 - (chars.length * this.#width + chars.length * this.#spacing) / 2;
+            const y   = row * this.#height + this.#spacing;
+            let chars = text.toLowerCase().split("");
+            let x     = this.#scene.canvas.width / 2 - (chars.length * this.#width + chars.length * this.#spacing) / 2;
             chars.forEach((char, j) => {
                 this.#containerLetters.push({
-                    char : char,
-                    dx   : x,
-                    dy   : y,
-                    x    : x + Math.random() * this.#width * 4 | 0,
-                    y    : this.#spawn.y - Math.random() * 16 * this.#height | 0,
+                    char: char,
+                    dx  : x,
+                    dy  : y,
+                    x   : x + Math.random() * this.#width * 4 | 0,
+                    y   : this.#spawn.y - Math.random() * 16 * this.#height | 0,
                 });
                 x += this.#width + this.#spacing;
                 this.#isLeftToRight = !this.#isLeftToRight;
@@ -106,21 +118,21 @@ export class Font {
         this.#isPortalIn     = true;
     }
 
-    clearPortalText() {
+    #clearPortalText() {
         this.#isPortalOut    = true;
         this.#portalVelocity = 1;
     }
 
-    drawContainer() {
+    #drawContainer() {
         this.#containerLetters.forEach((letter) => {
             if (letter.y === this.#spawn.y) {
                 return;
             }
-            this.drawChar(letter.char, letter.x + .5 | 0, letter.y + .5 | 0)
+            this.#drawChar(letter.char, letter.x + .5 | 0, letter.y + .5 | 0, 1)
         });
     }
 
-    drawPortal() {
+    #drawPortal() {
         if (!this.#portalLetters.length) {
             return;
         }
@@ -130,7 +142,7 @@ export class Font {
         const last                  = this.#portalLetters[this.#portalLetters.length - 1];
         this.#scene.ctx.fillRect(first.x - this.#width, first.y - 6, last.x - first.x + this.#width * 3, this.#height + 10);
         this.#portalLetters.forEach((letter) => {
-            this.drawChar(letter.char, letter.x + .5 | 0, letter.y + .5 | 0)
+            this.#drawChar(letter.char, letter.x + .5 | 0, letter.y + .5 | 0, 1)
         });
         this.#scene.ctx.globalAlpha = 1;
     }
@@ -227,11 +239,37 @@ export class Font {
         this.#setContainerText(this.#containers[this.#containerIndex]);
     }
 
+    #updateScroller() {
+        this.#scrollOffset += this.#scrollSpeed;
+        if (this.#scrollOffset > this.#width) {
+            this.#scrollOffset = 0;
+            if (++this.#scrollPos > this.#scrollEnd) {
+                this.#scrollPos   = 0;
+                this.#scrollFrame = 0;
+            }
+        }
+        ++this.#scrollFrame;
+    }
+
+    #drawScroller() {
+        const o = this.#width - this.#width - this.#scrollOffset + .5 | 0;
+        for (let i = 0; i < this.#scrollMaxLetters; i++) {
+            this.#drawChar(this.#scrollText[this.#scrollPos + i], i * this.#width + o, 82 + Math.sin((i + this.#scrollFrame) * .1) * this.#qHeight, .5);
+        }
+    }
+
     update() {
         this.#updateContainerIn();
         this.#updateContainerWait();
         this.#updateContainerOut();
         this.#updatePortalIn();
         this.#updatePortalOut();
+        this.#updateScroller();
+    }
+
+    draw() {
+        this.#drawContainer();
+        this.#drawPortal();
+        this.#drawScroller();
     }
 }

@@ -47,6 +47,21 @@ Here you'll find some of my public projects and official social pages like Faceb
         <a target="_blank" id="discord" title="Discord" href="https://discord.gg/mRcHXYfEWn"></a>
         <a target="_blank" id="pgp" title="Download PGP public key" href="/pgp-public.asc" rel="nofollow"></a>
     </section>
+    <div id="scrolltext" style="display: none">
+        Doep doe doe doep!
+        Thank you for visiting my website markuszeller.com!
+        Do you like it? Leave me some feedback.
+
+        Listen to my music via the red buttons or contact me via the blue ones.
+        Take a pill and choose wisely, stay in the matrix. Do not go over start and do not collect 4000 bucks.
+
+        Want to always stay up to date about my latest music?
+        Then consider subscribing to my podcast, Spotify, SoundCloud, Instagram or YouTube channel.
+        My music will always be free to listen to, and if you like it, you can support me by smashing like buttons,
+        leaving comments, and so on - the usual social media shit, or even go crazy and share it on the music portals.
+
+        Yours, Markus Zeller aka DJ N-4ceR, Forces Grooves Records.
+    </div>
 </main>
 
 <footer style="display: none">
