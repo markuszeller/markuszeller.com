@@ -52,6 +52,10 @@ Here you'll find some of my public projects and official social pages like Faceb
         Thank you for visiting my website markuszeller.com!
         Do you like it? Leave me some feedback.
 
+        Yeah, the next Evoke is taking place in 2024 in Cologne, Germany from 16th to 18th of August.
+        I have submitted an entry for the mp32/ogg music compo. Hopefully, it will get acceppted and a
+        good placement. I am looking forward to the event.
+
         Listen to my music via the red buttons or contact me via the blue ones.
         Take a pill and choose wisely, stay in the matrix. Do not go over start and do not collect 4000 bucks.
 
