@@ -1,10 +1,53 @@
-<!DOCTYPE html>
+<?php
+$title = 'DJ N-4ceR aka Markus Zeller Music Profile';
+$audioProfiles = [
+    'spotify' => 'https://open.spotify.com/artist/2Tzmp2LceoFOr9n2hZ7C2L',
+    'podcast' => 'https://markuszeller.com/podcast',
+    'soundcloud' => 'https://soundcloud.com/dj-n-4cer',
+    'youtube' => 'https://www.youtube.com/channel/UCPHO1UnGo21SSTFm00a5d-A',
+    'tiktok' => 'https://www.tiktok.com/@markuszeller.com',
+    'itunes' => 'https://music.apple.com/de/artist/markus-zeller/1384221074',
+    'deezer' => 'https://www.deezer.com/de/artist/13317899',
+    'tidal' => 'https://tidal.com/browse/artist/9176316',
+    'amazon' => 'https://music.amazon.com/artists/B0797F355G/markus-zeller',
+];
+$socialProfiles = [
+    'github' => 'https://github.com/markuszeller/',
+    'instagram' => 'https://www.instagram.com/markuszeller/',
+    'telegram' => 'https://telegram.me/markuszeller',
+    'stackoverflow' => 'https://stackoverflow.com/users/2645713/markus-zeller',
+    'facebook' => 'https://www.facebook.com/markus.zeller.private/',
+    'discord' => 'https://discord.gg/mRcHXYfEWn',
+    'pgp' => 'https://markuszeller.com/pgp-public.asc',
+];
+$colors = (object)[
+    'reset' => "\033[0m",
+    'bold' => "\033[1m",
+    'blue' => "\033[34m",
+    'magenta' => "\033[35m",
+    'cyan' => "\033[36m",
+];
+if (str_starts_with( $_SERVER['HTTP_USER_AGENT'] ?? '', 'curl')) {
+    header('Content-Type: text/plain');
+    readfile('./avatar.asc');
+    echo PHP_EOL, $colors->bold, $colors->cyan, $title, $colors->reset, PHP_EOL, PHP_EOL;
+    $format = "%s%13s: $colors->reset%s\n";
+    foreach ($audioProfiles as $id => $url) {
+        printf($format, $colors->blue, ucfirst($id), $url);
+    }
+    echo PHP_EOL;
+    foreach ($socialProfiles as $id => $url) {
+        printf($format, $colors->magenta, ucfirst($id), $url);
+    }
+    exit;
+}
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.75, maximum-scale=0.75">
-    <title>DJ N-4ceR aka Markus Zeller Music Profile</title>
+    <title><?=$title; ?></title>
     <link rel="preconnect" href="https://www.markuszeller.com">
     <meta name="description" content="Markus Zeller Homepage">
     <meta property="og:title" content="Markus Zeller">
@@ -28,24 +71,19 @@ Here you'll find some of my public projects and official social pages like Faceb
 <main>
     <canvas id="canvas" width="512" height="624"></canvas>
     <section>
-        <a target="_blank" id="spotify" title="Spotify" href="https://open.spotify.com/artist/2Tzmp2LceoFOr9n2hZ7C2L"></a>
-        <a target="_blank" id="podcast" title="Podcast" href="https://markuszeller.com/podcast"></a>
-        <a target="_blank" id="soundcloud" title="Soundcloud" href="https://soundcloud.com/dj-n-4cer"></a>
-        <a target="_blank" id="youtube" title="Youtube" href="https://www.youtube.com/channel/UCPHO1UnGo21SSTFm00a5d-A"></a>
-        <a target="_blank" id="tiktok" title="TikTok" href="https://www.tiktok.com/@markuszeller.com"></a>
-        <a target="_blank" id="itunes" title="iTunes - Apple Music" href="https://music.apple.com/de/artist/markus-zeller/1384221074"></a>
-        <a target="_blank" id="deezer" title="Deezer" href="https://www.deezer.com/de/artist/13317899"></a>
-        <a target="_blank" id="tidal" title="Tidal" href="https://tidal.com/browse/artist/9176316"></a>
-        <a target="_blank" id="amazon" title="Amazon Music" href="https://music.amazon.com/artists/B0797F355G/markus-zeller"></a>
+        <?php
+        $format = '<a target="_blank" id="%s" title="%s" href="%s"></a>' . PHP_EOL;
+        foreach ($audioProfiles as $id => $url) {
+            printf($format, $id, ucfirst($id), $url);
+        }
+        ?>
     </section>
     <section>
-        <a target="_blank" id="github" title="Github" href="https://github.com/markuszeller/"></a>
-        <a target="_blank" id="instagram" title="Instagram" href="https://www.instagram.com/markuszeller/"></a>
-        <a target="_blank" id="telegram" title="Telegram" href="https://telegram.me/markuszeller"></a>
-        <a target="_blank" id="stackoverflow" title="Stack Overflow" href="https://stackoverflow.com/users/2645713/markus-zeller"></a>
-        <a target="_blank" id="facebook" title="Facebook" href="https://www.facebook.com/markus.zeller.private/"></a>
-        <a target="_blank" id="discord" title="Discord" href="https://discord.gg/mRcHXYfEWn"></a>
-        <a target="_blank" id="pgp" title="Download PGP public key" href="/pgp-public.asc" rel="nofollow"></a>
+        <?php
+        foreach ($socialProfiles as $id => $url) {
+            printf($format, $id, ucfirst($id), $url);
+        }
+        ?>
     </section>
     <div id="scrolltext" style="display: none">
         Doep doe doe doep!
