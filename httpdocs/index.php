@@ -39,6 +39,7 @@ if (str_starts_with( $_SERVER['HTTP_USER_AGENT'] ?? '', 'curl')) {
     foreach ($socialProfiles as $id => $url) {
         printf($format, $colors->magenta, ucfirst($id), $url);
     }
+    echo PHP_EOL;
     exit;
 }
 ?><!DOCTYPE html>
