@@ -50,6 +50,7 @@ if (str_starts_with( $_SERVER['HTTP_USER_AGENT'] ?? '', 'curl')) {
     <title><?=$title; ?></title>
     <link rel="preconnect" href="https://www.markuszeller.com">
     <meta name="description" content="Markus Zeller Homepage">
+    <link rel="alternate" type="application/rss+xml" title="DJ N-4ceR Promo Podcast by Markus Zeller" href="https://www.markuszeller.com/podcast/itunes.rss">
     <meta property="og:title" content="Markus Zeller">
     <meta property="og:url" content="https://www.markuszeller.com">
     <meta property="og:type" content="website">
