@@ -27,7 +27,7 @@ $colors = (object)[
     'magenta' => "\033[35m",
     'cyan' => "\033[36m",
 ];
-if (str_starts_with( $_SERVER['HTTP_USER_AGENT'] ?? '', 'curl')) {
+if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
     header('Content-Type: text/plain');
     readfile('./avatar.asc');
     echo PHP_EOL, $colors->bold, $colors->cyan, $title, $colors->reset, PHP_EOL, PHP_EOL;
