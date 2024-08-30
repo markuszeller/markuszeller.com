@@ -89,23 +89,23 @@ Here you'll find some of my public projects and official social pages like Faceb
         ?>
     </section>
     <div id="scrolltext" style="display: none">
-        Doep doe doe doep!
-        Thank you for visiting my website markuszeller.com!
-        Do you like it? Leave me some feedback.
+        --- For this weekend expect a new track to be released on the Xenium 2024 party in Poland.
+        The compo will take place Saturday, 31.09.2024 at 16:30. After the prizegiving the song
+        named 'i love you baaaad' will be made available for the public.
 
-        Yeah, the next Evoke is taking place in 2024 in Cologne, Germany from 16th to 18th of August.
-        I have submitted an entry for the mp3-ogg music stream compo. Hopefully, it will get acceppted and a
-        good placement. I am looking forward to the event.
+        --- Evoke is over and my track was sadly not in the selection. So I submitted it to another party,
+        The Chaos Constructions 2024 in St. Petersbug, Russia, and it was accepted. So I am happy to announce that my track made
+        the 4th place. It is now available on the usual platforms. Just search for 'startup sequence'.
 
-        Listen to my music via the red buttons or contact me via the blue ones.
+        --- Listen to my music via the red buttons or contact me via the blue ones.
         Take a pill and choose wisely, stay in the matrix. Do not go over start and do not collect 4000 bucks.
 
-        Want to always stay up to date about my latest music?
+        --- Want to always stay up to date about my latest music?
         Then consider subscribing to my podcast, Spotify, SoundCloud, Instagram or YouTube channel.
         My music will always be free to listen to, and if you like it, you can support me by smashing like buttons,
         leaving comments, and so on - the usual social media shit, or even go crazy and share it on the music portals.
 
-        Yours, Markus Zeller aka DJ N-4ceR, Forces Grooves Records.
+        --- Yours, Markus Zeller aka DJ N-4ceR, Forces Grooves Records.
     </div>
 </main>
 
