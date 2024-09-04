@@ -89,13 +89,9 @@ Here you'll find some of my public projects and official social pages like Faceb
         ?>
     </section>
     <div id="scrolltext" style="display: none">
-        --- For this weekend expect a new track to be released on the Xenium 2024 party in Poland.
-        The compo will take place Saturday, 31.09.2024 at 16:30. After the prizegiving the song
-        named 'i love you baaaad' will be made available for the public.
-
-        --- Evoke is over and my track was sadly not in the selection. So I submitted it to another party,
-        The Chaos Constructions 2024 in St. Petersbug, Russia, and it was accepted. So I am happy to announce that my track made
-        the 4th place. It is now available on the usual platforms. Just search for 'startup sequence'.
+        --- The party weekends are over. My entries are released now and available in the podcast,
+        youtube and soundcloud. 'startup sequence' made the 4th place at Chaos Constructions 2024.
+        'i love you baaaad' made the 21st place at Xenium 2024.
 
         --- Listen to my music via the red buttons or contact me via the blue ones.
         Take a pill and choose wisely, stay in the matrix. Do not go over start and do not collect 4000 bucks.
@@ -105,7 +101,7 @@ Here you'll find some of my public projects and official social pages like Faceb
         My music will always be free to listen to, and if you like it, you can support me by smashing like buttons,
         leaving comments, and so on - the usual social media shit, or even go crazy and share it on the music portals.
 
-        --- Yours, Markus Zeller aka DJ N-4ceR, Forces Grooves Records.
+        --- Yours, Markus Zeller aka DJ N-4ceR, Forced Grooves Records.
     </div>
 </main>
 
