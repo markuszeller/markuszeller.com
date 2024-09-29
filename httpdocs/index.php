@@ -88,21 +88,21 @@ Here you'll find some of my public projects and official social pages like Faceb
         }
         ?>
     </section>
-    <div id="scrolltext" style="display: none">
-        --- The party weekends are over. My entries are released now and available in the podcast,
+    <ul id="scrolltext" style="display: none">
+        <li>The party weekends are over. My entries are released now and available in the podcast,
         youtube and soundcloud. 'startup sequence' made the 4th place at Chaos Constructions 2024.
-        'i love you baaaad' made the 21st place at Xenium 2024.
+            'i love you baaaad' made the 21st place at Xenium 2024.</li>
 
-        --- Listen to my music via the red buttons or contact me via the blue ones.
-        Take a pill and choose wisely, stay in the matrix. Do not go over start and do not collect 4000 bucks.
+        <li>Listen to my music via the red buttons or contact me via the blue ones.
+            Take a pill and choose wisely, stay in the matrix. Do not go over start and do not collect 4000 bucks.</li>
 
-        --- Want to always stay up to date about my latest music?
+        <li>Want to always stay up to date about my latest music?
         Then consider subscribing to my podcast, Spotify, SoundCloud, Instagram or YouTube channel.
         My music will always be free to listen to, and if you like it, you can support me by smashing like buttons,
-        leaving comments, and so on - the usual social media shit, or even go crazy and share it on the music portals.
+            leaving comments, and so on - the usual social media shit, or even go crazy and share it on the music portals.</li>
 
-        --- Yours, Markus Zeller aka DJ N-4ceR, Forced Grooves Records.
-    </div>
+        <li>Yours, Markus Zeller aka DJ N-4ceR, Forced Grooves Records.</li>
+    </ul>
 </main>
 
 <footer style="display: none">
