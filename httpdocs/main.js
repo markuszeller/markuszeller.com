@@ -20,7 +20,10 @@ sprite.addEventListener("load", () => scene.state.setAvatarIn());
 sprite.src = "/sprite.png";
 
 const starfield = new Starfield(scene);
-const font      = new Font(scene, document.getElementById('scrolltext').innerText);
+const font      = new Font(
+    scene,
+    [...document.querySelectorAll('#scrolltext li')].map(e => e.innerText).join(' --- ')
+);
 const avatar    = new Avatar(scene);
 
 document.querySelectorAll('footer dl').forEach(dl => {
