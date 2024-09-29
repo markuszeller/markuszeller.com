@@ -89,9 +89,8 @@ Here you'll find some of my public projects and official social pages like Faceb
         ?>
     </section>
     <ul id="scrolltext" style="display: none">
-        <li>The party weekends are over. My entries are released now and available in the podcast,
-        youtube and soundcloud. 'startup sequence' made the 4th place at Chaos Constructions 2024.
-            'i love you baaaad' made the 21st place at Xenium 2024.</li>
+        <li>Oh yet another weekend demoscene party. The deadline in Berlin from October 6th. And guess what?!
+            I made a remote entry. Be prepared for a full on acid track.</li>
 
         <li>Listen to my music via the red buttons or contact me via the blue ones.
             Take a pill and choose wisely, stay in the matrix. Do not go over start and do not collect 4000 bucks.</li>
