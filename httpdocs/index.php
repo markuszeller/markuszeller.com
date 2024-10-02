@@ -53,8 +53,21 @@ if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
     <meta name="description" content="Markus Zeller Homepage">
     <link rel="canonical" href="https://www.markuszeller.com">
     <link rel="alternate" type="application/rss+xml" title="DJ N-4ceR Promo Podcast by Markus Zeller" href="https://www.markuszeller.com/podcast/itunes.rss">
-    <meta property="og:title" content="Markus Zeller">
-    <meta property="og:url" content="https://www.markuszeller.com">
+    <?php
+    foreach ($audioProfiles as $id => $url) {
+        if (in_array($id, ['podcast'])) {
+            continue;
+        }
+        echo '<link rel="alternate" type="text/html" title="DJ N-4ceR on ' . ucfirst($id) . '" href="' . $url . '">' . PHP_EOL;
+    }
+
+    foreach ($socialProfiles as $id => $url) {
+        if (in_array($id, ['pgp'])) {
+            continue;
+        }
+        echo '<link rel="alternate" type="text/html" title="Markus Zeller on ' . ucfirst($id) . '" href="' . $url . '">' . PHP_EOL;
+    }
+    ?>
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Markus Zeller">
