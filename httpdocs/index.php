@@ -104,6 +104,10 @@ Here you'll find some of my public projects and official social pages like Faceb
         ?>
     </section>
     <ul id="scrolltext" style="display: none">
+        <li>Oh yeah, this year has still not ended. So let's take part in yet another music compo.
+            Next on the table is the !tum Party in Sonnenberghalle Helferskirchen, Germany
+            taking place on 2004, December 27th for three days.</li>
+
         <li>The Deadline in Berlin is over. My music entry 'deadline in berlin' made the 6th place in the competition.
             There were 19 other very cool submissions in total.
             Enjoy the Full on Acid track by subscribing to my podcast or watch on Youtube.</li>
