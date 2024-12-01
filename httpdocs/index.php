@@ -104,6 +104,8 @@ Here you'll find some of my public projects and official social pages like Faceb
         ?>
     </section>
     <ul id="scrolltext" style="display: none">
+        <li>Just released my song -shutdown-. Be the first listening on podcast, soundcloud and youtube.</li>
+        <li>Also I am looking forward to the Inercia Demoscene Party in Portugal. Get ready for my next song release there at December 7th.</li>
         <li>Listen to my music via the red buttons or contact me via the blue ones.
             Take a pill and choose wisely, stay in the matrix. Do not go over start and do not collect 4000 bucks.</li>
 
