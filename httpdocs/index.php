@@ -18,6 +18,7 @@ $socialProfiles = [
     'stackoverflow' => 'https://stackoverflow.com/users/2645713/markus-zeller',
     'facebook' => 'https://www.facebook.com/markus.zeller.private/',
     'discord' => 'https://discord.gg/mRcHXYfEWn',
+    'twitter' => 'https://twitter.com/markuszeller',
     'pgp' => 'https://markuszeller.com/pgp-public.asc',
 ];
 $colors = (object)[
