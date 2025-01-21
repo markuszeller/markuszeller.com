@@ -50,10 +50,10 @@ if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.75, maximum-scale=0.75">
     <title><?=$title; ?></title>
-    <link rel="preconnect" href="https://www.markuszeller.com">
+    <link rel="preconnect" href="https://markuszeller.com">
     <meta name="description" content="Markus Zeller Homepage">
-    <link rel="canonical" href="https://www.markuszeller.com">
-    <link rel="alternate" type="application/rss+xml" title="DJ N-4ceR Promo Podcast by Markus Zeller" href="https://www.markuszeller.com/podcast/itunes.rss">
+    <link rel="canonical" href="https://markuszeller.com">
+    <link rel="alternate" type="application/rss+xml" title="DJ N-4ceR Promo Podcast by Markus Zeller" href="https://markuszeller.com/podcast/itunes.rss">
     <link rel="newsletter" href="https://markuszeller.com/newsletter/">
     <?php
     foreach ($audioProfiles as $id => $url) {
@@ -71,15 +71,15 @@ if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
     }
     ?>
     <meta property="og:title" content="Markus Zeller">
-    <meta property="og:url" content="https://www.markuszeller.com">
+    <meta property="og:url" content="https://markuszeller.com">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Markus Zeller">
     <meta property="fb:app_id" content="119351002115701">
     <meta property="og:description" content="Hello and welcome to my homepage. I am Markus Zeller who likes to code, make music, make some graphics stuff and bodybuilding.
 Here you'll find some of my public projects and official social pages like Facebook, Instagram or my Youtube channel.">
-    <meta property="og:image" content="https://www.markuszeller.com/img/markuszeller.png">
-    <meta property="og:image:secure_url" content="https://www.markuszeller.com/img/markuszeller.png">
+    <meta property="og:image" content="https://markuszeller.com/img/markuszeller.png">
+    <meta property="og:image:secure_url" content="https://markuszeller.com/img/markuszeller.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="600">
