@@ -54,6 +54,7 @@ if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
     <meta name="description" content="Markus Zeller Homepage">
     <link rel="canonical" href="https://www.markuszeller.com">
     <link rel="alternate" type="application/rss+xml" title="DJ N-4ceR Promo Podcast by Markus Zeller" href="https://www.markuszeller.com/podcast/itunes.rss">
+    <link rel="newsletter" href="https://markuszeller.com/newsletter/">
     <?php
     foreach ($audioProfiles as $id => $url) {
         if (in_array($id, ['podcast'])) {
@@ -83,13 +84,14 @@ Here you'll find some of my public projects and official social pages like Faceb
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="600">
     <meta property="og:image:alt" content="A photo from Markus Zeller in a pixeled Southpark character style.">
-    <script src="/main.js" defer type="module"></script>
+    <script src="/main.js" type="module"></script>
 </head>
 <body>
 
 <main>
     <canvas id="canvas" width="512" height="624"></canvas>
     <section>
+        <h2>Profiles</h2>
         <?php
         $format = '<a target="_blank" id="%s" title="%s" href="%s"></a>' . PHP_EOL;
         foreach ($audioProfiles as $id => $url) {
@@ -98,6 +100,7 @@ Here you'll find some of my public projects and official social pages like Faceb
         ?>
     </section>
     <section>
+        <h2>Social</h2>
         <?php
         foreach ($socialProfiles as $id => $url) {
             printf($format, $id, ucfirst($id), $url);
@@ -117,23 +120,24 @@ Here you'll find some of my public projects and official social pages like Faceb
 </main>
 
 <footer style="display: none">
-    <dl>
-        <dd>Hello and Welcome to my Artist page!</dd>
-        <dd>I am Markus Zeller aka DJ N-4ceR.</dd>
-    </dl>
-    <dl>
-        <dd>Here you will find my latest songs and</dd>
-        <dd>all the links to the music portals.</dd>
-    </dl>
-    <dl>
-        <dd>Just hover over the ones of your interest</dd>
-        <dd>and click it to open in a new tab.</dd>
-    </dl>
-    <dl>
-        <dd>Here comes a tracklist of my releases</dd>
-        <dd>ordered by release date, latest first.</dd>
-    </dl>
+    <ul>
+        <li>Hello and Welcome to my Artist page!</li>
+        <li>I am Markus Zeller aka DJ N-4ceR.</li>
+    </ul>
+    <ul>
+        <li>Here you will find my latest songs and</li>
+        <li>all the links to the music portals.</li>
+    </ul>
+    <ul>
+        <li>Just hover over the ones of your interest</li>
+        <li>and click it to open in a new tab.</li>
+    </ul>
+    <ul>
+        <li>Here comes a tracklist of my releases</li>
+        <li>ordered by release date, latest first.</li>
+    </ul>
     <section id="tracklist">
+        <h2>Tracklist</h2>
         <?php readfile(__DIR__ . '/tracklist.html'); ?>
     </section>
 </footer>
