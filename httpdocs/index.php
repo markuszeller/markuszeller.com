@@ -91,7 +91,7 @@ Here you'll find some of my public projects and official social pages like Faceb
 <main>
     <canvas id="canvas" width="512" height="624"></canvas>
     <section>
-        <h2>Profiles</h2>
+        <h2 hidden>Profiles</h2>
         <?php
         $format = '<a target="_blank" id="%s" title="%s" href="%s"></a>' . PHP_EOL;
         foreach ($audioProfiles as $id => $url) {
@@ -100,7 +100,7 @@ Here you'll find some of my public projects and official social pages like Faceb
         ?>
     </section>
     <section>
-        <h2>Social</h2>
+        <h2 hidden>Social</h2>
         <?php
         foreach ($socialProfiles as $id => $url) {
             printf($format, $id, ucfirst($id), $url);
