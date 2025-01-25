@@ -27,7 +27,7 @@ const font      = new Font(
 const avatar    = new Avatar(scene);
 
 document.querySelectorAll('footer dl').forEach(dl => {
-    font.addContainer([...dl.querySelectorAll('dd')].map(dd => dd.innerText));
+    font.addContainer([dl.querySelector('dt').innerText, dl.querySelector('dd').innerText]);
 });
 
 const update = () => {
