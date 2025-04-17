@@ -54,6 +54,7 @@ if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
     <meta name="description" content="Markus Zeller Homepage">
     <link rel="canonical" href="https://markuszeller.com">
     <link rel="alternate" type="application/rss+xml" title="DJ N-4ceR Promo Podcast by Markus Zeller" href="https://markuszeller.com/podcast/itunes.rss">
+    <link rel="alternate" type="application/rss+xml" title="DJ N.4ceR News by Markus Zeller" href="https://markuszeller.com/news.xml">
     <link rel="newsletter" href="https://markuszeller.com/newsletter/">
     <?php
     foreach ($audioProfiles as $id => $url) {

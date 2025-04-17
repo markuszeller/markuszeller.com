@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>DJ N-4ceR aka Markus Zeller News</title>
+        <link>https://markuszeller.com</link>
+        <atom:link href="https://markuszeller.com/news.xml" rel="self" type="application/rss+xml" />
+        <description>Latest updates and news</description>
+        <language>en</language>
+        <lastBuildDate>Thu, 25 Apr 2024 18:15:00 +0200</lastBuildDate>
+        <item>
+            <author>news@markuszeller.com (Markus Zeller)</author>
+            <category>Demoscene</category>
+            <category>Music</category>
+            <category>Graphics</category>
+            <title>Revision 2025 Party Submissions</title>
+            <link>https://markuszeller.com/#news-revision2025</link>
+            <description>This easter weekend the Revision 2025 party takes place! I have submitted two entries - one for streaming music and another for modern graphics.</description>
+            <pubDate>Thu, 25 Apr 2024 18:15:00 +0200</pubDate>
+            <guid isPermaLink="false">revision2025</guid>
+        </item>
+    </channel>
+</rss>
