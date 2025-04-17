@@ -107,8 +107,13 @@ Here you'll find some of my public projects and official social pages like Faceb
         }
         ?>
     </section>
-    <ul id="scrolltext" style="display: none">
-        <li>Happy new year 2025!</li>
+    <ul id="scrolltext" style="display: none" itemscope itemtype="https://schema.org/NewsArticle">
+        <li itemprop="articleBody">This easter weekend the Revision 2025 party takes place! I have submitted two entries. One for streaming music
+        and another one - for the very first time - in the category modern graphics. Wish me luck and leave a vote!
+        As always, after the official party release the track will be available on Youtube, Soundcloud and of
+        course my Podcast! (hit buttons on bottom).</li>
+
+        <li>I wish you a happy easter and relaxed holidays!</li>
 
         <li>Want to always stay up to date about my latest music?
         Then consider subscribing to my podcast, Spotify, SoundCloud, Instagram or YouTube channel.
