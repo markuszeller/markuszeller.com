@@ -1,5 +1,10 @@
 <?php
+declare(strict_types=1);
+
+use Database\Connector;require_once './podcast/Database/Connector.php';
+
 $title = 'DJ N-4ceR aka Markus Zeller Music Profile';
+
 $audioProfiles = [
     'spotify' => 'https://open.spotify.com/artist/2Tzmp2LceoFOr9n2hZ7C2L',
     'podcast' => 'https://markuszeller.com/podcast',
@@ -11,6 +16,7 @@ $audioProfiles = [
     'tidal' => 'https://tidal.com/browse/artist/9176316',
     'amazon' => 'https://music.amazon.com/artists/B0797F355G/markus-zeller',
 ];
+
 $socialProfiles = [
     'github' => 'https://github.com/markuszeller/',
     'instagram' => 'https://www.instagram.com/markuszeller/',
@@ -21,6 +27,9 @@ $socialProfiles = [
     'twitter' => 'https://twitter.com/markuszeller',
     'pgp' => 'https://markuszeller.com/pgp-public.asc',
 ];
+
+$slugs = array_merge(array_keys($audioProfiles), array_keys($socialProfiles));
+
 $colors = (object)[
     'reset' => "\033[0m",
     'bold' => "\033[1m",
@@ -28,21 +37,49 @@ $colors = (object)[
     'magenta' => "\033[35m",
     'cyan' => "\033[36m",
 ];
+
+$profile = $_GET['profile'] ?? null;
+if (null !== $profile) {
+    if (false === in_array($profile, $slugs)) {
+        http_response_code(404);
+        exit;
+    }
+    trackProfileHit($profile);
+    header('Location: ' . array_merge($audioProfiles, $socialProfiles)[$profile]);
+    exit;
+}
+
 if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
     header('Content-Type: text/plain');
     readfile('./avatar.asc');
     echo PHP_EOL, $colors->bold, $colors->cyan, $title, $colors->reset, PHP_EOL, PHP_EOL;
     $format = "%s%13s: $colors->reset%s\n";
     foreach ($audioProfiles as $id => $url) {
+        $url = getUrlWithSlug($id);
         printf($format, $colors->blue, ucfirst($id), $url);
     }
     echo PHP_EOL;
     foreach ($socialProfiles as $id => $url) {
+        $url = getUrlWithSlug($id);
         printf($format, $colors->magenta, ucfirst($id), $url);
     }
     echo PHP_EOL;
     exit;
 }
+
+function getUrlWithSlug(string $slug): string
+{
+    return "https://{$_SERVER['SERVER_NAME']}/profile/$slug";
+}
+
+function trackProfileHit(string $slug): void
+{
+    $statement = Connector::getConnection()->prepare(
+            'UPDATE `social` SET `hits` = `hits` + 1 WHERE `slug` = :slug LIMIT 1'
+    );
+    $statement->execute(['slug' => $slug]);
+}
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +98,7 @@ if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
         if (in_array($id, ['podcast'])) {
             continue;
         }
+        $url = getUrlWithSlug($id);
         echo '<link rel="alternate" type="text/html" title="DJ N-4ceR on ' . ucfirst($id) . '" href="' . $url . '">' . PHP_EOL;
     }
 
@@ -68,6 +106,7 @@ if (str_starts_with(strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''), 'curl')) {
         if (in_array($id, ['pgp'])) {
             continue;
         }
+        $url = getUrlWithSlug($id);
         echo '<link rel="alternate" type="text/html" title="Markus Zeller on ' . ucfirst($id) . '" href="' . $url . '">' . PHP_EOL;
     }
     ?>
@@ -94,8 +133,9 @@ Here you'll find some of my public projects and official social pages like Faceb
     <section>
         <h2 hidden>Profiles</h2>
         <?php
-        $format = '<a target="_blank" id="%s" title="%s" href="%s"></a>' . PHP_EOL;
+        $format = '<a id="%s" title="%s" href="%s"></a>' . PHP_EOL;
         foreach ($audioProfiles as $id => $url) {
+            $url = getUrlWithSlug($id);
             printf($format, $id, ucfirst($id), $url);
         }
         ?>
@@ -104,6 +144,7 @@ Here you'll find some of my public projects and official social pages like Faceb
         <h2 hidden>Social</h2>
         <?php
         foreach ($socialProfiles as $id => $url) {
+            $url = getUrlWithSlug($id);
             printf($format, $id, ucfirst($id), $url);
         }
         ?>
