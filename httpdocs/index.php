@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use Database\Connector;require_once './podcast/Database/Connector.php';
+use Database\Connector;
+
+require_once './podcast/Database/Connector.php';
 
 $title = 'DJ N-4ceR aka Markus Zeller Music Profile';
 
