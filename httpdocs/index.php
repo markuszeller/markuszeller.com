@@ -150,10 +150,8 @@ Here you'll find some of my public projects and official social pages like Faceb
         ?>
     </section>
     <ul id="scrolltext" style="display: none" itemscope itemtype="https://schema.org/NewsArticle">
-        <li itemprop="articleBody">Now it is official. My next 12 inch vinyl record is in production.
-            It will be released on Forced Grooves Records, and it is called - DJ N-4ceR 02 TSA and Friends -.
-            Six tracks are contained and one is from the one and only Chris Huelsbeck!
-            You can listen and preorder at n4cer.de. The pressing has started and you can watch a video on Instagram!
+        <li itemprop="articleBody">The records are here! Shipping starts on Monday, 7th of July 2025.
+            You can listen and preorder at n4cer.de. Watch my instagram for more details.
         </li>
 
         <li itemprop="articleBody">Want to always stay up to date about my latest music?
